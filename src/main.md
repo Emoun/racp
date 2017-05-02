@@ -24,13 +24,13 @@ This encoding is based on the ASCII standard but seeks to modernise it to make b
 
 ### Column description:
 
-- Dec: The decimal encoding of the character.
-- Hex: The hexadecimal encoding of the character.
-- Bin: The binary encoding of the character.
-- Symbol: Unique symbol representing the character.
-- ASCII: A set of ASCII characters that map to a RACP character. These are designed to allow for characters to be written in ASCII and then converted to RACP using an automated tool, and vice versa.
-- Graphics: Proposed graphical representation of the character on-screen.
-- Description: Short description. See next section for more information on specific topics.
+- **Dec**: The decimal encoding of the character.
+- **Hex**: The hexadecimal encoding of the character.
+- **Bin**: The binary encoding of the character.
+- **Symbol**: Unique symbol representing the character.
+- **ASCII**: A set of ASCII characters that map to a RACP character. These are designed to allow for characters to be written in ASCII and then converted to RACP using an automated tool, and vice versa.
+- **Graphics**: Proposed graphical representation of the character on-screen.
+- **Description**: Short description. See next section for more information on specific topics.
 
 Dec | Hex | Bin | Symbol | ASCII | Graphics | Description
 :---:|:---:|:----:|:---:|:---:|:---:|:------
@@ -162,6 +162,54 @@ Dec | Hex | Bin | Symbol | ASCII | Graphics | Description
 125 | 7D | 0111 1101 | 	} | 	}	 | }	  | curly brackets or braces
 126 | 7E | 0111 1110 | 	~ | 	~	 | ~	  | Tilde ; swung dash
 127 | 7F | 0111 1111 |	APPR | 	\\~	 | ≈	  | Approx; double swing dash
+
+### Tabbing
+
+TODO
+
+### Script
+
+An implicit instruction language that must be interpreted and run at this point in the reading of the text.
+
+A script segment is started by the \\{ (ASCII) character and is bounded by the \\} character. Any character in between these two is part of that script segment. The language of the script is undefined by this specification and is implicitly known by any reader of the character stream.
+
+The script segment is executed by the entity reading the character stream. The segment should specify intructions for reader to do at that given moment of the character stream reading, be it state change or generation of additional character.
+
+### Formatting
+
+An implicit instruction language that must be interpreted and run at this point in the reading of the text.
+
+A formatting segment is started by the \\[ (ASCII) character and is bounded by the \\] character.Any characterin between these two is part of that script segment. The language of the script is undefined by this specification and is implicitly known by any reader of the character stream.
+
+The formatting segment tells the current reader of the character stream, how to continue reading the character stream.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
