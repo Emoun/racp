@@ -22,6 +22,16 @@ This encoding is based on the ASCII standard but seeks to modernise it to make b
 
 ## Specification
 
+### Column description:
+
+- Dec: The decimal encoding of the character.
+- Hex: The hexadecimal encoding of the character.
+- Bin: The binary encoding of the character.
+- Symbol: Unique symbol representing the character.
+- ASCII: A set of ASCII characters that map to a RACP character. These are designed to allow for characters to be written in ASCII and then converted to RACP using an automated tool, and vice versa.
+- Graphics: Proposed graphical representation of the character on-screen.
+- Description: Short description. See next section for more information on specific topics.
+
 Dec | Hex | Bin | Symbol | ASCII | Graphics | Description
 :---:|:---:|:----:|:---:|:---:|:---:|:------
 000 | 00 | 0000 0000 | NULL | \0 | ␀ | Null character
