@@ -165,7 +165,11 @@ Dec | Hex | Bin | Symbol | ASCII | Graphics | Description
 
 ### Tabbing
 
-TODO
+Using the tab character enables the creation of  simple formatting in a string of characters.
+By default a tab is defined as being displayed as a blank and takes up a set number of character display slots. This standard does not specify the number, except to require any specific display of a string to use the same number for all tabs in the same string.
+
+If a line of characters contains a set of tabs, and the next line in the string contains the exact same number of tabs, the tabs must be aligned in such a way that each tab in the second line is directly below the corresponding tab in the previous line. This requirement is stronger than the requirement of all tabs needing to take up the same character display slots. Therefore, if a tab needs to take up more slots to be alligned with its predecessor then it must do so. If the characters preceding a tab are so numerous that the tab is aligned further to the right than its predecessor, even though it takes up only one space, the predecessor must be realigned to match the tab.
+These allignment requirements are chained. This means if three consequtive lines have the exact same number of tabs, all the lines must align their tabs to match each other, and so on for more lines.
 
 ### Script
 
