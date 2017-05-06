@@ -13,7 +13,7 @@ This encoding is based on the ASCII standard but seeks to modernise it to make b
 - Control character cleanup: Only contains four control characters; Null, Tab, New-Line, and Escape. Put the old control characters slots to good use with new characters useful in the modern programming world.
 - Only a single New-Line character (ASCII 'Line Feed').
 - Dedicated Escape character for use within a string when programming.
-- Tab now has a specification, no more dependence on the editor to tab correctly. (TODO)
+- Tab now has a specification, no more dependence on the editor to tab correctly.
 - Three new bracket/paranthesis sets: 2 sets with dedicated use cases and 1 for generic use. No more using '<' and '>' for brackets.
 - Additional numeral systems:
 	- Booleans: Dedicated TRUE/FALSE characters. No more using '0b' to distinguish from decimal.
