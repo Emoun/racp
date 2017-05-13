@@ -73,7 +73,7 @@ Dec | Hex | Bin | Symbol | ASCII | Graphics | Description
 036 | 24 | 0010 0100 | 	$ | 	$	 | $	  | Dollar sign
 037 | 25 | 0010 0101 | 	% | 	%	 | %	  | Percent sign
 038 | 26 | 0010 0110 | 	& | 	&	 | &	  | Ampersand
-039 | 27 | 0010 0111 | 	' | 	'	 | '	  | Apostrophe)
+039 | 27 | 0010 0111 | 	' | 	'	 | '	  | Apostrophe
 040 | 28 | 0010 1000 | 	( | 	(	 | (	  | round brackets or parentheses
 041 | 29 | 0010 1001 | 	) | 	)	 | )	  | round brackets or parentheses
 042 | 2A | 0010 1010 | 	* | 	*	 | *	  | Asterisk
