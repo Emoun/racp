@@ -7,7 +7,7 @@ A character set for the modern programming environment.
 The use of the ASCII character set has been ongoing for about 50 years now<sup>1</sup> and it seems time for a modernisation.
 I find that ASCII no longer fits the role it has as the de facto character set. It was designed for use with teletypes<sup>2</sup>, but is now used for so much more. This begs the question: why? The short answer is that its what we have always done. But, this answer hinders progress and innovation, so I have decided to try and modernise ASCII for the current software development environment.
 
-ASCII is uses 7-bit code, i.e. 128 codes in total, but about a quarter of those are control codes which are rarely used<sup>3</sup>. A huge waste. 
+ASCII uses 7-bit character codes, i.e. 128 codes in total, but about a quarter of those are control codes which are rarely used<sup>3</sup>. A huge waste. 
 RACP aims at repurposing those codes for useful endevours and additionally define rules which solve some of the annoyances programmers face today. Like: 
 
 *"Why does this file not use the proper new-line;* <insert *\n* or *\n\r* at your discretion> *?"*
