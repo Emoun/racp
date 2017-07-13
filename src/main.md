@@ -41,8 +41,8 @@ Dec | Hex | Bin | Symbol | ASCII | Graphics | Description
 004 | 04 | 0000 0100 | 	%> | 	\\}	 | 	  | Script end or script until next newLine
 005 | 05 | 0000 0101 | 	FALSE |	\F	 |    | Boolean value false
 006 | 06 | 0000 0110 | 	TRUE | 	\T	 | 	  | Boolean value true
-007 | 07 | 0000 0111 | 	<%> | 	\%	 | 	  | Script divider; If outside of script, then script mark
-008 | 08 | 0000 1000 | 	<:> | 	\:	 | 	  | Formatting divider; If outside formatting, then formatting mark
+007 | 07 | 0000 0111 | 	<%> | 	\p	 | ¶	  | Pilcrow
+008 | 08 | 0000 1000 | 	<:> | 	\q	 | ⁋	  | Reversed Pilcrow
 009 | 09 | 0000 1001 | 	HT | 	\t	 | ␉	  | Horizontal Tab
 010 | 0A | 0000 1010 | 	NL | 	\n	 | U+2424 | New Line
 011 | 0B | 0000 1011 | 	0x1 | 	\1	 | ١	  | Hexadecimal number one
