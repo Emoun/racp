@@ -130,7 +130,7 @@ Dec | Hex | Bin | Symbol | ASCII | Graphics | Description
 093 | 5D | 0101 1101 | 	] | 	]	 | ]	  | square brackets or box brackets
 094 | 5E | 0101 1110 | 	^ | 	^	 | ^	  | Caret or circumflex accent
 095 | 5F | 0101 1111 | 	_ | 	_	 | _	  | underscore , understrike , underbar or low line
-096 | 60 | 0110 0000 | 	` | 	`	 | `	  | Grave accent
+096 | 60 | 0110 0000 | 	` | 	`	 | §	  | Section Sign
 097 | 61 | 0110 0001 | 	a | 	a	 | a	  | Lowercase  a 
 098 | 62 | 0110 0010 | 	b | 	b	 | b	  | Lowercase  b 
 099 | 63 | 0110 0011 | 	c | 	c	 | c	  | Lowercase  c 
