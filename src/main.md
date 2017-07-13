@@ -41,9 +41,9 @@ Dec | Hex | Bin | Symbol | ASCII | Graphics | Description
 004 | 04 | 0000 0100 | 	%> | 	\\}	 | 	  | Script end or script until next newLine
 005 | 05 | 0000 0101 | 	FALSE |	\F	 |    | Boolean value false
 006 | 06 | 0000 0110 | 	TRUE | 	\T	 | 	  | Boolean value true
-007 | 07 | 0000 0111 | 	<%> | 	\p	 | ¶	  | Pilcrow
-008 | 08 | 0000 1000 | 	<:> | 	\q	 | ⁋	  | Reversed Pilcrow
-009 | 09 | 0000 1001 | 	HT | 	\t	 | ␉	  | Horizontal Tab
+007 | 07 | 0000 0111 | 	PIL | 	\p	 | ¶	  | Pilcrow
+008 | 08 | 0000 1000 | 	RPIL | 	\q	 | ⁋	  | Reversed Pilcrow
+009 | 09 | 0000 1001 | 	TAB | 	\t	 | ␉	  | Horizontal Tab
 010 | 0A | 0000 1010 | 	NL | 	\n	 | U+2424 | New Line
 011 | 0B | 0000 1011 | 	0x1 | 	\1	 | ١	  | Hexadecimal number one
 012 | 0C | 0000 1100 | 	0x2 | 	\2	 | ٢	  | Hexadecimal number two
@@ -64,8 +64,8 @@ Dec | Hex | Bin | Symbol | ASCII | Graphics | Description
 027 | 1B | 0001 1011 | 	ESC | 	\E	 | ␛	  | Escape the next character; if the character has special meaning, dont interpret the meaning just print its symbol
 028 | 1C | 0001 1100 | 	<&#124; | 	\(	 | ⟨	  | Angle bracket left
 029 | 1D | 0001 1101 | 	&#124;> | 	\)	 | ⟩	  | Angle bracket right
-030 | 1E | 0001 1110 | 	LDAQ | 	\<	 | «	 | 
-031 | 1F | 0001 1111 | 	RDAQ | 	\>	 | »	 | 
+030 | 1E | 0001 1110 | 	LDAQ | 	\<	 | «	 | Left-pointing Double Angle Quote
+031 | 1F | 0001 1111 | 	RDAQ | 	\>	 | »	 | Rgiht-pointing Double Angle Quaote
 032 | 20 | 0010 0000 | 	SP | 	  	 | ␠	  | space
 033 | 21 | 0010 0001 | 	! | 	!	 | !	  | exclamation mark
 034 | 22 | 0010 0010 | 	" | 	"	 | "	  | Quotation mark
@@ -81,7 +81,7 @@ Dec | Hex | Bin | Symbol | ASCII | Graphics | Description
 044 | 2C | 0010 1100 | 	, | 	,	 | ,	  | Comma
 045 | 2D | 0010 1101 | 	- | 	-	 | -	  | Hyphen
 046 | 2E | 0010 1110 | 	. | 	.	 | .	  | Full stop , dot
-047 | 2F | 0010 1111 | 	/ | 	/	 | /	  | Slash
+047 | 2F | 0010 1111 | 	/ | 	/	 | /	  | Slash, Forward Slash
 048 | 30 | 0011 0000 | 	0 | 	0	 | 0	  | Decimal number zero
 049 | 31 | 0011 0001 | 	1 | 	1	 | 1	  | Decimal number one
 050 | 32 | 0011 0010 | 	2 | 	2	 | 2	  | Decimal number two
@@ -130,7 +130,7 @@ Dec | Hex | Bin | Symbol | ASCII | Graphics | Description
 093 | 5D | 0101 1101 | 	] | 	]	 | ]	  | square brackets or box brackets
 094 | 5E | 0101 1110 | 	^ | 	^	 | ^	  | Caret or circumflex accent
 095 | 5F | 0101 1111 | 	_ | 	_	 | _	  | underscore , understrike , underbar or low line
-096 | 60 | 0110 0000 | 	` | 	`	 | §	  | Section Sign
+096 | 60 | 0110 0000 | 	SEC | 	\s	 | §	  | Section Sign
 097 | 61 | 0110 0001 | 	a | 	a	 | a	  | Lowercase  a 
 098 | 62 | 0110 0010 | 	b | 	b	 | b	  | Lowercase  b 
 099 | 63 | 0110 0011 | 	c | 	c	 | c	  | Lowercase  c 
@@ -160,8 +160,8 @@ Dec | Hex | Bin | Symbol | ASCII | Graphics | Description
 123 | 7B | 0111 1011 | 	{ | 	{	 | {	  | curly brackets or braces
 124 | 7C | 0111 1100 | 	&#124; | 	&#124;	 | &#124;	  | vertical-bar, vbar, vertical line or vertical slash
 125 | 7D | 0111 1101 | 	} | 	}	 | }	  | curly brackets or braces
-126 | 7E | 0111 1110 | 	~ | 	~	 | ~	  | Tilde ; swung dash
-127 | 7F | 0111 1111 |	APPR | 	\\~	 | ≈	  | Approx; double swing dash
+126 | 7E | 0111 1110 | 	~ | 	~	 | ~	  | Tilde ; swing dash
+127 | 7F | 0111 1111 |	DIV | 	\\~	 | ÷	  | Division Sign
 
 ### Tabbing
 
