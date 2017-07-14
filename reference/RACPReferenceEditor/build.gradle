@@ -1,0 +1,24 @@
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+group = 'emoun'
+version = "0.1.0"
+
+eclipse.classpath.downloadJavadoc = true // defaults to 'false'
+
+repositories {
+   flatDir {
+       dirs 'libs'
+   }
+   mavenCentral()
+}
+
+dependencies {
+	compile(group: 'commons-io', name: 'commons-io', version: '2.5')
+}
+
+task fatJar(type: Jar) {
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
