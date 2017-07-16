@@ -9,16 +9,16 @@ import javax.imageio.ImageIO;
 public class RACPReferenceFont {
 
 //Fields
-	public static int WIDTH = 8;
-	public static int HEIGHT = 16;
+	public static final int WIDTH = 8;
+	public static final int HEIGHT = 16;
 	
-	private static int X_OFFSET = 28;
-	private static int Y_OFFSET = 12;
-	private static int X_BUFFER = 10;
-	private static int COLUMNS = 16;
-	private static int ROWS = 8;
-	private static int COLUMN_MULT = 1;
-	private static int ROW_MULT = 16;
+	public static final int X_OFFSET = 28;
+	public static final int Y_OFFSET = 12;
+	public static final int X_BUFFER = 10;
+	public static final int COLUMNS = 16;
+	public static final int ROWS = 8;
+	public static final int COLUMN_MULT = 1;
+	public static final int ROW_MULT = 16;
 	
 	
 	public BufferedImage[] glyph = new BufferedImage[128];
