@@ -4,6 +4,7 @@
 ## Introduction
 
 This document describes the complete specification for the **R**evised **A**SCII **C**odes for **P**rogramming character encoding.
+
 This is an 8-bit encoding with 128 valid characters ranging the values of 0 - 127. The most significant bit is reserved for future specification of a multi-byte encoding, compatible with RACP.
 
 This encoding is based on the ASCII standard but seeks to modernise it to make better use of the limited encoding space. The encoding __does not__ seek to be compatible with either ASCII nor Unicode but will take inspiration from them where there is no reason not to.
