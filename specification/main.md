@@ -1,23 +1,23 @@
 # Revised ASCII Codes for Programming Specification
-**version** 0.0.1
+**version** 0.0.2
 
 ## Introduction
 
 This document describes the complete specification for the **R**evised **A**SCII **C**odes for **P**rogramming character encoding.
-This is an 8-bit encoding with 128 valid characters ranging the values of 0 - 127. The most significant bit is reserved for future specification of a multi-byte encoding compatible with RACP.
+This is an 8-bit encoding with 128 valid characters ranging the values of 0 - 127. The most significant bit is reserved for future specification of a multi-byte encoding, compatible with RACP, which handles all other characters in the world (basically, a new Unicode compatible with RACP).
 
-This encoding is based on the ASCII standard but seeks to modernise it to make better use of the limitted encoding space. The encoding __does not__ seek to be compatible with either ASCII nor Unicode but will take inspiration from them where there is no reason not to.
+This encoding is based on the ASCII standard but seeks to modernise it to make better use of the limited encoding space. The encoding __does not__ seek to be compatible with either ASCII nor Unicode but will take inspiration from them where there is no reason not to.
 
 ## Features, compared to ASCII
 
-- Control character cleanup: Only contains four control characters; Null, Tab, New-Line, and Escape. Put the old control characters slots to good use with new characters useful in the modern programming world.
-- Only a single New-Line character (ASCII 'Line Feed').
+- Control character cleanup: Only contains four control characters; Null, Tab, New-Line, and Escape. Puts the old control characters slots to good use with new characters useful in the modern programming world.
+- Only one unambiguous New-Line character (ASCII 'Line Feed').
 - Dedicated Escape character for use within a string when programming.
 - Tab now has a specification, no more dependence on the editor to tab correctly.
 - Three new bracket/paranthesis sets: 2 sets with dedicated use cases and 1 for generic use. No more using '<' and '>' for brackets.
 - Additional numeral systems:
-	- Booleans: Dedicated TRUE/FALSE characters. No more using '0b' to distinguish from decimal.
-	- Hexadecimal: Dedicated hexadecimal characters. No more using '0x' to distinguish from decimal.
+	- Booleans: Dedicated TRUE/FALSE number characters. No more using '0b' to distinguish from decimal.
+	- Hexadecimal: Dedicated hexadecimal number characters. No more using '0x' to distinguish from decimal.
 - All your favourite characters are right where you left them! Any character in RACP also found in ASCII is exactly the same place.
 
 ## Specification
@@ -34,7 +34,7 @@ This encoding is based on the ASCII standard but seeks to modernise it to make b
 
 Dec | Hex | Bin | Symbol | ASCII | Graphics | Description
 :---:|:---:|:----:|:---:|:---:|:---:|:------
-000 | 00 | 0000 0000 | NULL | \0 | ␀ | Null character
+000 | 00 | 0000 0000 | NULL | \0 |  | Null character
 001 | 01 | 0000 0001 | 	<% | 	\\{	 | 	  | Script start
 002 | 02 | 0000 0010 | 	<: | 	\\[	 | 	  | Formatting start
 003 | 03 | 0000 0011 | 	:> | 	\\]	 | 	  | Formatting end or formatting until next newLine
@@ -43,7 +43,7 @@ Dec | Hex | Bin | Symbol | ASCII | Graphics | Description
 006 | 06 | 0000 0110 | 	TRUE | 	\T	 | 	  | Boolean value true
 007 | 07 | 0000 0111 | 	PIL | 	\p	 | ¶	  | Pilcrow
 008 | 08 | 0000 1000 | 	RPIL | 	\q	 | ⁋	  | Reversed Pilcrow
-009 | 09 | 0000 1001 | 	TAB | 	\t	 | ␉	  | Horizontal Tab
+009 | 09 | 0000 1001 | 	TAB | 	\t	 | 	  | Tab
 010 | 0A | 0000 1010 | 	NL | 	\n	 | U+2424 | New Line
 011 | 0B | 0000 1011 | 	0x1 | 	\1	 | ١	  | Hexadecimal number one
 012 | 0C | 0000 1100 | 	0x2 | 	\2	 | ٢	  | Hexadecimal number two
@@ -54,7 +54,7 @@ Dec | Hex | Bin | Symbol | ASCII | Graphics | Description
 017 | 11 | 0001 0001 | 	0x7 | 	\7	 | ٧	  | Hexadecimal number seven
 018 | 12 | 0001 0010 | 	0x8 | 	\8	 | ٨	  | Hexadecimal number eight
 019 | 13 | 0001 0011 | 	0x9 | 	\9	 | ٩	  | Hexadecimal number nine
-020 | 14 | 0001 0100 | 	0xA | 	\a	 | < ٠ with ٠ on top>	  | Hexadecimal number ten
+020 | 14 | 0001 0100 | 	0xA | 	\a	 | < ٠ with ٠ on top	  | Hexadecimal number ten
 021 | 15 | 0001 0101 | 	0xB | 	\b	 | < ١ with ٠ on top>	  | Hexadecimal number eleven
 022 | 16 | 0001 0110 | 	0xC | 	\c	 | < ٢ with ٠ on top>	  | Hexadecimal number twelve
 023 | 17 | 0001 0111 | 	0xD | 	\d	 | < ٣ with ٠ on top>	  | Hexadecimal number thirteen
