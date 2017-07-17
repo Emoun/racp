@@ -10,7 +10,7 @@ I find that ASCII no longer fits the role it has as the de facto character set. 
 ASCII uses 7-bit character codes, i.e. 128 codes in total, but about a quarter of those are control codes which are rarely used<sup>3</sup>. A huge waste. 
 RACP aims at repurposing those codes for useful endevours and additionally define rules which solve some of the annoyances programmers face today. Like: 
 
-*"Why does this file not use the proper new-line;* <insert *\n* or *\n\r* at your discretion> *?"*
+*"Why does this file not use the proper new-line;* <insert *\n* or *\r\n* at your discretion> *?"*
 
 *"Is that number in hexadecimal, decimal, or, god forbid, binary?"*
 

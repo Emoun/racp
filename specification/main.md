@@ -1,24 +1,25 @@
 # Revised ASCII Codes for Programming Specification
-**version** 0.0.1
+**version** 0.0.2
 
 ## Introduction
 
 This document describes the complete specification for the **R**evised **A**SCII **C**odes for **P**rogramming character encoding.
-This is an 8-bit encoding with 128 valid characters ranging the values of 0 - 127. The most significant bit is reserved for future specification of a multi-byte encoding compatible with RACP.
+This is an 8-bit encoding with 128 valid characters ranging the values of 0 - 127. The most significant bit is reserved for future specification of a multi-byte encoding, compatible with RACP.
 
-This encoding is based on the ASCII standard but seeks to modernise it to make better use of the limitted encoding space. The encoding __does not__ seek to be compatible with either ASCII nor Unicode but will take inspiration from them where there is no reason not to.
+This encoding is based on the ASCII standard but seeks to modernise it to make better use of the limited encoding space. The encoding __does not__ seek to be compatible with either ASCII nor Unicode but will take inspiration from them where there is no reason not to.
 
 ## Features, compared to ASCII
 
-- Control character cleanup: Only contains four control characters; Null, Tab, New-Line, and Escape. Put the old control characters slots to good use with new characters useful in the modern programming world.
-- Only a single New-Line character (ASCII 'Line Feed').
-- Dedicated Escape character for use within a string when programming.
-- Tab now has a specification, no more dependence on the editor to tab correctly.
+- Control character cleanup: Only contains four control characters; Null, Tab, New-Line, and Escape. Puts the old control characters slots to good use with new characters useful in the modern programming world.
+- Only one unambiguous New-Line character (ASCII 'Line Feed').
+- Dedicated Escape character for use within a string when programming and more.
+- Tab now has a specification, no more table formatting hell, no more dependence on the editor to tab correctly.
 - Three new bracket/paranthesis sets: 2 sets with dedicated use cases and 1 for generic use. No more using '<' and '>' for brackets.
+- New characters (I.e. not present in ASCII): Pilcrow, Reversed pilcrow, Currency Sign, Section Sign, Division Sign.
 - Additional numeral systems:
-	- Booleans: Dedicated TRUE/FALSE characters. No more using '0b' to distinguish from decimal.
-	- Hexadecimal: Dedicated hexadecimal characters. No more using '0x' to distinguish from decimal.
-- All your favourite characters are right where you left them! Any character in RACP also found in ASCII is exactly the same place.
+	- Booleans: Dedicated TRUE/FALSE number characters. No more using '0b' to distinguish from decimal.
+	- Hexadecimal: Dedicated hexadecimal number characters. No more using '0x' to distinguish from decimal.
+- All your favourite characters are right where you left them!<sup>1</sup> Any character in RACP also found in ASCII is exactly the same place.
 
 ## Specification
 
@@ -26,7 +27,7 @@ This encoding is based on the ASCII standard but seeks to modernise it to make b
 
 - **Dec**: The decimal encoding of the character.
 - **Hex**: The hexadecimal encoding of the character.
-- **Bin**: The binary encoding of the character.
+- **Bin**: The binary encoding of the character. Most to least significant bit.
 - **Symbol**: Unique symbol representing the character.
 - **ASCII**: A set of ASCII characters that map to a RACP character. These are designed to allow for characters to be written in ASCII and then converted to RACP using an automated tool, and vice versa.
 - **Graphics**: Proposed graphical representation of the character on-screen.
@@ -34,7 +35,7 @@ This encoding is based on the ASCII standard but seeks to modernise it to make b
 
 Dec | Hex | Bin | Symbol | ASCII | Graphics | Description
 :---:|:---:|:----:|:---:|:---:|:---:|:------
-000 | 00 | 0000 0000 | NULL | \0 | ␀ | Null character
+000 | 00 | 0000 0000 | NULL | \0 |  | Null character
 001 | 01 | 0000 0001 | 	<% | 	\\{	 | 	  | Script start
 002 | 02 | 0000 0010 | 	<: | 	\\[	 | 	  | Formatting start
 003 | 03 | 0000 0011 | 	:> | 	\\]	 | 	  | Formatting end or formatting until next newLine
@@ -43,30 +44,30 @@ Dec | Hex | Bin | Symbol | ASCII | Graphics | Description
 006 | 06 | 0000 0110 | 	TRUE | 	\T	 | 	  | Boolean value true
 007 | 07 | 0000 0111 | 	PIL | 	\p	 | ¶	  | Pilcrow
 008 | 08 | 0000 1000 | 	RPIL | 	\q	 | ⁋	  | Reversed Pilcrow
-009 | 09 | 0000 1001 | 	TAB | 	\t	 | ␉	  | Horizontal Tab
+009 | 09 | 0000 1001 | 	TAB | 	\t	 | 	  | Tab
 010 | 0A | 0000 1010 | 	NL | 	\n	 | U+2424 | New Line
-011 | 0B | 0000 1011 | 	0x1 | 	\1	 | ١	  | Hexadecimal number one
-012 | 0C | 0000 1100 | 	0x2 | 	\2	 | ٢	  | Hexadecimal number two
-013 | 0D | 0000 1101 | 	0x3 | 	\3	 | ٣	  | Hexadecimal number three
-014 | 0E | 0000 1110 | 	0x4 | 	\4	 | ٤	  | Hexadecimal number four
-015 | 0F | 0000 1111 | 	0x5 |	\5	 | ٥	  | Hexadecimal number five
-016 | 10 | 0001 0000 | 	0x6 | 	\6	 | ٦	  | Hexadecimal number six
-017 | 11 | 0001 0001 | 	0x7 | 	\7	 | ٧	  | Hexadecimal number seven
-018 | 12 | 0001 0010 | 	0x8 | 	\8	 | ٨	  | Hexadecimal number eight
-019 | 13 | 0001 0011 | 	0x9 | 	\9	 | ٩	  | Hexadecimal number nine
-020 | 14 | 0001 0100 | 	0xA | 	\a	 | < ٠ with ٠ on top>	  | Hexadecimal number ten
-021 | 15 | 0001 0101 | 	0xB | 	\b	 | < ١ with ٠ on top>	  | Hexadecimal number eleven
-022 | 16 | 0001 0110 | 	0xC | 	\c	 | < ٢ with ٠ on top>	  | Hexadecimal number twelve
-023 | 17 | 0001 0111 | 	0xD | 	\d	 | < ٣ with ٠ on top>	  | Hexadecimal number thirteen
-024 | 18 | 0001 1000 | 	0xE | 	\e	 | < ٤ with ٠ on top>	  | Hexadecimal number fourteen
-025 | 19 | 0001 1001 | 	0xF | 	\f	 | < ٥ with ٠ on top>	  | Hexadecimal number fifteen
+011 | 0B | 0000 1011 | 	HEX1 | 	\1	 | ١	  | Hexadecimal number one
+012 | 0C | 0000 1100 | 	HEX2 | 	\2	 | ٢	  | Hexadecimal number two
+013 | 0D | 0000 1101 | 	HEX3 | 	\3	 | ٣	  | Hexadecimal number three
+014 | 0E | 0000 1110 | 	HEX4 | 	\4	 | ٤	  | Hexadecimal number four
+015 | 0F | 0000 1111 | 	HEX5 |	\5	 | ٥	  | Hexadecimal number five
+016 | 10 | 0001 0000 | 	HEX6 | 	\6	 | ٦	  | Hexadecimal number six
+017 | 11 | 0001 0001 | 	HEX7 | 	\7	 | ٧	  | Hexadecimal number seven
+018 | 12 | 0001 0010 | 	HEX8 | 	\8	 | ٨	  | Hexadecimal number eight
+019 | 13 | 0001 0011 | 	HEX9 | 	\9	 | ٩	  | Hexadecimal number nine
+020 | 14 | 0001 0100 | 	HEX10 | 	\a	 | 	  | Hexadecimal number ten
+021 | 15 | 0001 0101 | 	HEX11 | 	\b	 | 	  | Hexadecimal number eleven
+022 | 16 | 0001 0110 | 	HEX12 | 	\c	 |    | Hexadecimal number twelve
+023 | 17 | 0001 0111 | 	HEX13 | 	\d	 | 	  | Hexadecimal number thirteen
+024 | 18 | 0001 1000 | 	HEX14 | 	\e	 | 	  | Hexadecimal number fourteen
+025 | 19 | 0001 1001 | 	HEX15 | 	\f	 | 	  | Hexadecimal number fifteen
 026 | 1A | 0001 1010 | 	CUR | 	\C	 | ¤	  | Currency sign
-027 | 1B | 0001 1011 | 	ESC | 	\E	 | ␛	  | Escape the next character; if the character has special meaning, dont interpret the meaning just print its symbol
+027 | 1B | 0001 1011 | 	ESC | 	\E	 |	| Escape the next character; if the character has special meaning, dont interpret the meaning just print its symbol
 028 | 1C | 0001 1100 | 	<&#124; | 	\(	 | ⟨	  | Angle bracket left
 029 | 1D | 0001 1101 | 	&#124;> | 	\)	 | ⟩	  | Angle bracket right
 030 | 1E | 0001 1110 | 	LDAQ | 	\<	 | «	 | Left-pointing Double Angle Quote
 031 | 1F | 0001 1111 | 	RDAQ | 	\>	 | »	 | Rgiht-pointing Double Angle Quaote
-032 | 20 | 0010 0000 | 	SP | 	  	 | ␠	  | space
+032 | 20 | 0010 0000 | 	SP | 	  	 |   | space
 033 | 21 | 0010 0001 | 	! | 	!	 | !	  | exclamation mark
 034 | 22 | 0010 0010 | 	" | 	"	 | "	  | Quotation mark
 035 | 23 | 0010 0011 | 	# | 	#	 | #	  | Number sign
@@ -166,18 +167,18 @@ Dec | Hex | Bin | Symbol | ASCII | Graphics | Description
 ### Tabbing
 
 Using the tab character enables the creation of  simple formatting in a string of characters.
-By default a tab is defined as being displayed as a blank and takes up a set number of character display slots. This standard does not specify the number, except to require any specific display of a string to use the same number for all tabs in the same string.
+By default a tab is defined as being displayed as a blank and takes up a set number of Character Display Slots (CDS). This standard does not specify the number, except to require any specific display of a string to use the same number for all tabs in the same string.
 
-If a line of characters contains a set of tabs, and the next line in the string contains the exact same number of tabs, the tabs must be aligned in such a way that each tab in the second line is directly below the corresponding tab in the previous line. This requirement is stronger than the requirement of all tabs needing to take up the same character display slots. Therefore, if a tab needs to take up more slots to be alligned with its predecessor then it must do so. If the characters preceding a tab are so numerous that the tab is aligned further to the right than its predecessor, even though it takes up only one space, the predecessor must be realigned to match the tab.
-These allignment requirements are chained. This means if three consequtive lines have the exact same number of tabs, all the lines must align their tabs to match each other, and so on for more lines.
+If a line of characters contains a set of tabs, and the next line in the string contains the exact same number of tabs, the tabs must be aligned in such a way that each tab in the second line is directly below the corresponding tab in the previous line. This requirement is stronger than the requirement of all tabs needing to take up the same number of CDSs. Therefore, if a tab needs to take up more slots to be alligned with its predecessor then it must do so. This realignment cannot reduce the number of CDSs a tab takes up below what the tab would have taken up without realignment.
+These allignment requirements are chained. This means if any number of consequtive lines have the exact same number of tabs, all the lines must align their tabs to match each other.
 
 ### Script
 
 An implicit instruction language that must be interpreted and run at this point in the reading of the text.
 
-A script segment is started by the \\{ (ASCII) character and is bounded by the \\} character. Any character in between these two is part of that script segment. The language of the script is undefined by this specification and is implicitly known by any reader of the character stream.
+A script segment is started by the \\{ (ASCII) character and is bounded by the \\} character. Any character in between these two is part of that script segment. The language of the script is undefined by this specification and is implicitly known by any reader of the character String.
 
-The script segment is executed by the entity reading the character stream. The segment should specify intructions for reader to do at that given moment of the character stream reading, be it state change or generation of additional character.
+The script segment is executed by the entity reading the character String. The segment specifies intructions for reader to do at that given moment of the character stream reading, be it state change or generation of additional characters.
 
 ### Formatting
 
@@ -188,8 +189,9 @@ A formatting segment is started by the \\[ (ASCII) character and is bounded by t
 The formatting segment tells the current reader of the character stream, how to continue reading the character stream.
 
 
+<sup>1</sup>: Removed the Grave Accent (`) character. It is too similar to the Apostrophe (') and, honestly, it is no ones favourite character<sup>2</sup>. It is better suited for the multi-character encoding where proper frech can be specified. It has been replaced with the Section Sign (U+0060,&#96).
 
-
+<sup>2</sup>: I hate its inclusion in ASCII to such a degree that I wont even search for evidence coroborating this statement.
 
 
 
