@@ -21,13 +21,13 @@ public class Main {
 	public static void main(String[] args){
 		
 		try {
-			font.loadFont(new File("src/resources/font/RACP-reference-font-8x16.bmp"));
-			fontInv.loadFont(new File("src/resources/font/RACP-reference-font-8x16-inverted.bmp"));
-			fontVisibleWhitespace.loadFont(new File("src/resources/font/RACP-reference-font-8x16-visible-whitespace.bmp"));
-			fontVisibleWhitespaceInv.loadFont(new File("src/resources/font/RACP-reference-font-8x16-visible-whitespace-inverted.bmp"));
+			font.loadFont(Main.class.getResourceAsStream("/font/RACP-reference-font-8x16.bmp"));
+			fontInv.loadFont(Main.class.getResourceAsStream("/font/RACP-reference-font-8x16-inverted.bmp"));
+			fontVisibleWhitespace.loadFont(Main.class.getResourceAsStream("/font/RACP-reference-font-8x16-visible-whitespace.bmp"));
+			fontVisibleWhitespaceInv.loadFont(Main.class.getResourceAsStream("/font/RACP-reference-font-8x16-visible-whitespace-inverted.bmp"));
 			
 		} catch (IOException e) {
-			throw new IllegalArgumentException("Unable to load font", e);
+			throw new IllegalArgumentException("Unable to load fonts", e);
 		}
 		
 		if(args.length == 1){

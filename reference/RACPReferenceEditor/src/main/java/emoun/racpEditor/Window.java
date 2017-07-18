@@ -89,7 +89,7 @@ public class Window extends JFrame{
 	}
 	
 	public void invertVisibleWhitespace(){
-		System.out.println("Invert");
+		System.out.println("Invert whitespaces");
 		Main.visibleWhiteSpaceCharacters = !Main.visibleWhiteSpaceCharacters;
 		textArea.repaint();
 	}

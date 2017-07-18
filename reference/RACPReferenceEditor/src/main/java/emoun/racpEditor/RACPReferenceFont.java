@@ -3,6 +3,7 @@ package emoun.racpEditor;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.imageio.ImageIO;
 
@@ -28,9 +29,8 @@ public class RACPReferenceFont {
 	
 //Methods
 	
-	public void loadFont(File referenceImage) throws IOException{
+	public void loadFont(InputStream referenceImage) throws IOException{
 		BufferedImage image = ImageIO.read(referenceImage);
-		
 		for(int y = 0; y < ROWS; y++){
 			for(int x = 0; x < COLUMNS; x++){
 				

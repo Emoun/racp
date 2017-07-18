@@ -18,7 +18,16 @@ dependencies {
 	compile(group: 'commons-io', name: 'commons-io', version: '2.5')
 }
 
+jar {
+    manifest {
+        attributes 'Main-Class': 'emoun.racpEditor.Main'
+    }
+}
+
 task fatJar(type: Jar) {
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    manifest {
+        attributes 'Main-Class': 'emoun.racpEditor.Main'
+    }
+	from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
 }
