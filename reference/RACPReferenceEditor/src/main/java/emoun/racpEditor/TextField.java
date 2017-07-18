@@ -1,10 +1,8 @@
 package emoun.racpEditor;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
-import java.io.IOException;
-
-import javax.swing.JPanel;
 
 public class TextField  extends DoublyLinkedPanel<TextField>{
 
@@ -24,6 +22,11 @@ public class TextField  extends DoublyLinkedPanel<TextField>{
 		this.column = column;
 		this.row = row;
 		setBackground(Color.WHITE);
+		Dimension dimension = new Dimension(RACPReferenceFont.WIDTH, RACPReferenceFont.HEIGHT);
+		setPreferredSize(dimension);
+		setMaximumSize(dimension);
+		setMinimumSize(dimension);
+		
 		clear();
 	}
 	

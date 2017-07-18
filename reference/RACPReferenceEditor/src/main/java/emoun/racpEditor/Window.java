@@ -1,15 +1,14 @@
 package emoun.racpEditor;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-
 import javax.swing.JFrame;
-
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import org.apache.commons.io.FileUtils;
 
 import emoun.racpEditor.listeners.KeyboardListener;
@@ -31,8 +30,21 @@ public class Window extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		addKeyListener(new KeyboardListener(this));
 		setFocusTraversalKeysEnabled(false); //Enables tab events
+		
+		setPreferredSize(new Dimension(900,500));
+		
 		textArea = new TextArea(DEFAULT_COLUMNS, DEFAULT_ROWS);
-		add(textArea);
+		
+		
+		JPanel resizer = new JPanel();
+		resizer.setBackground(Color.WHITE);
+		resizer.setLayout(new FlowLayout(FlowLayout.LEFT));
+		resizer.add(textArea);
+		
+		JScrollPane scroller = new JScrollPane(resizer);
+		scroller.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		scroller.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		add(scroller);
 		pack();
 		setVisible(true);
 		content = new ArrayList<Byte>();
@@ -81,4 +93,5 @@ public class Window extends JFrame{
 		Main.visibleWhiteSpaceCharacters = !Main.visibleWhiteSpaceCharacters;
 		textArea.repaint();
 	}
+
 }

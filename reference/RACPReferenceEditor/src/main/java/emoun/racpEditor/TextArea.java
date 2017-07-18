@@ -1,11 +1,10 @@
 package emoun.racpEditor;
 
 import java.awt.Color;
-import java.awt.GridLayout;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 
+import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
 public class TextArea extends JPanel{
@@ -14,7 +13,8 @@ public class TextArea extends JPanel{
 //Constructs
 	public TextArea(int columns, int rows){
 		setBackground(Color.WHITE);
-		setLayout(new GridLayout(rows, 1));
+		BoxLayout layout = new BoxLayout(this,BoxLayout.Y_AXIS);
+		setLayout(layout);
 		
 		DoublyLinkedPanel.createList(rows, i -> new TextLine(columns,i) , 
 				(i, l) -> add(l));

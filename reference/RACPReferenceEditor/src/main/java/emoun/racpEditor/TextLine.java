@@ -2,14 +2,8 @@ package emoun.racpEditor;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.io.IOException;
+import java.awt.FlowLayout;
 import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.BoxLayout;
-import javax.swing.JPanel;
-
 import emoun.racpEditor.listeners.TextFieldMouseListener;
 
 
@@ -26,12 +20,9 @@ public class TextLine extends DoublyLinkedPanel<TextLine>{
 	
 	public TextLine(int size, int rowNr){
 		this.rowNr = rowNr;
-		setLayout(new GridLayout(1, size));
+		setLayout(new FlowLayout(FlowLayout.LEFT,1,1));
 		setBackground(Color.WHITE);
-		Dimension dimension = new Dimension(size*(RACPReferenceFont.WIDTH+1), RACPReferenceFont.HEIGHT);
-		setPreferredSize(dimension);
-		setMaximumSize(dimension);
-		setMinimumSize(dimension);
+		
 		DoublyLinkedPanel.createList(size, 
 			i ->  new TextField(i, rowNr), 
 			(i, f) -> {
@@ -39,6 +30,10 @@ public class TextLine extends DoublyLinkedPanel<TextLine>{
 				f.addMouseListener(listener);
 				TextLine.this.add(f);
 			});
+		Dimension dimension = new Dimension(RACPReferenceFont.WIDTH*size, RACPReferenceFont.HEIGHT);
+		setPreferredSize(dimension);
+		setMaximumSize(dimension);
+		setMinimumSize(dimension);
 		clear();
 	}
 	
