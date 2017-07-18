@@ -44,15 +44,10 @@ public class Main {
 
 	public static void clearFocusedFields(){
 		for(TextField f: focusedFields){
+			//Clear each field's focus
 			f.unfocus();
-			f.repaint();
 		}
+		//Remove the fields from the focused list.
 		focusedFields.clear();
 	}
-
-	public static void repaintFocusedFields(){
-		for(TextField f: focusedFields){
-			f.repaint();
-		}
-	}	
 }

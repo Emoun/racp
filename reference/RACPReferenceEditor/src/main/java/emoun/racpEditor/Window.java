@@ -85,13 +85,11 @@ public class Window extends JFrame{
 		}else{
 			throw new IllegalArgumentException("Not supporting multiple select");
 		}
-		textArea.repaint();
 	}
 	
 	public void invertVisibleWhitespace(){
 		System.out.println("Invert whitespaces");
 		Main.visibleWhiteSpaceCharacters = !Main.visibleWhiteSpaceCharacters;
-		textArea.repaint();
 	}
 
 }

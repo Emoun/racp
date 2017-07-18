@@ -54,23 +54,25 @@ public class TextField  extends DoublyLinkedPanel<TextField>{
 		display = c;
 		active = true;
 		partOfTab = false;
+		repaint();
 	}
 	
 	public void clear(){
 		display = DEFAULT_DISPLAY;
 		active = false;
 		partOfTab = false;
+		repaint();
 	}
+	
+	
 	
 	public void focus(){
 		if(active){
-			this.focus = true;
-			Main.focusedFields.add(this);
+			setFocused();
 		}else{
 			if (getPrevious() != null){
 				if((getPrevious().active() || getPrevious().partOfTab()) && !partOfTab()){
-					this.focus = true;
-					Main.focusedFields.add(this);
+					setFocused();
 				}else{
 					getPrevious().focus();
 				}
@@ -80,15 +82,21 @@ public class TextField  extends DoublyLinkedPanel<TextField>{
 					prevLine.focusLast();
 				}else{
 					//First field, and file is empty
-					this.focus = true;
-					Main.focusedFields.add(this);
+					setFocused();
 				}
 			}
 		}
 	}
+
+	private void setFocused() {
+		this.focus = true;
+		Main.focusedFields.add(this);
+		repaint();
+	}
 	
 	public void unfocus(){
 		this.focus = false;
+		repaint();
 	}
 	
 	public void displayAndPass(byte c){
@@ -105,6 +113,7 @@ public class TextField  extends DoublyLinkedPanel<TextField>{
 	public void tabify(){
 		this.partOfTab = true;
 		this.display = 9;
+		repaint();
 	}
 	
 	public void tabifyAndPass(){
