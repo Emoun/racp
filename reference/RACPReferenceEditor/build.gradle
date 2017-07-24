@@ -11,6 +11,9 @@ repositories {
    flatDir {
        dirs 'libs'
    }
+   maven {
+		url "http://artifactory.itcm.oneadr.net/repo"  
+	}
    mavenCentral()
 }
 

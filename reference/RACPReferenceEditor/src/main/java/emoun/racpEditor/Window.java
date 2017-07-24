@@ -16,32 +16,29 @@ import emoun.racpEditor.listeners.KeyboardListener;
 public class Window extends JFrame{
 	
 //Fields
-	public static final int DEFAULT_COLUMNS = 100;
-	public static final int DEFAULT_ROWS = 30;
-	
 	public File currentFile ;
 	private boolean changed = false;
 	private TextArea textArea;
 	private ArrayList<Byte> content;
-	private int displayStart , displayEnd;
 //Constructors
 	
 	public Window(){
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		addKeyListener(new KeyboardListener(this));
-		setFocusTraversalKeysEnabled(false); //Enables tab events
+		setFocusTraversalKeysEnabled(false); //Enables tab clicks to be sent o the keyboard listener
 		
 		setPreferredSize(new Dimension(900,500));
 		
-		textArea = new TextArea(DEFAULT_COLUMNS, DEFAULT_ROWS);
+		textArea = new TextArea();
 		
 		
 		JPanel resizer = new JPanel();
-		resizer.setBackground(Color.WHITE);
+		resizer.setBackground(Color.GREEN);
 		resizer.setLayout(new FlowLayout(FlowLayout.LEFT));
 		resizer.add(textArea);
 		
 		JScrollPane scroller = new JScrollPane(resizer);
+		scroller.setBackground(Color.PINK);
 		scroller.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scroller.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		add(scroller);
@@ -58,8 +55,7 @@ public class Window extends JFrame{
 		for(byte c: FileUtils.readFileToByteArray(f)){
 			content.add(c);
 		}
-		displayStart = 0;
-		displayEnd = textArea.display(content, displayStart);
+		textArea.display(content);
 		textArea.repaint();
 		updateFocusTracker();
 	}
@@ -75,10 +71,14 @@ public class Window extends JFrame{
 		
 		if(Main.focusedFields.size() == 1){
 			TextField f = Main.focusedFields.get(0);
-			textArea.insertCharAt(f.row(), f.column(), c);
+			if(c == 10){// newline
+				f.splitLine();
+			}else{
+				f.pushAndDisplay(c);
+			}
 			Main.clearFocusedFields();
-			
 			f.focusNext();
+			f.getParentLine().unifyGroup();
 			updateFocusTracker();
 		}else if(Main.focusedFields.size() == 0){
 			throw new IllegalArgumentException("No focus");
@@ -90,6 +90,7 @@ public class Window extends JFrame{
 	public void invertVisibleWhitespace(){
 		System.out.println("Invert whitespaces");
 		Main.visibleWhiteSpaceCharacters = !Main.visibleWhiteSpaceCharacters;
+		textArea.repaint();
 	}
 
 }

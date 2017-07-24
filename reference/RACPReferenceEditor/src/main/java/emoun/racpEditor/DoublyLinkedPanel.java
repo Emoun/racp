@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 
 import emoun.racpEditor.listeners.TextFieldMouseListener;
 
-public class DoublyLinkedPanel<T> extends JPanel{
+public class DoublyLinkedPanel<T extends DoublyLinkedPanel<T>> extends JPanel{
 	
 //Fields
 	private T previous, next;
@@ -37,6 +37,21 @@ public class DoublyLinkedPanel<T> extends JPanel{
 		this.previous = previous;
 	}	
 	
+	public void unlinkNext(){
+		if(next != null){
+			next.setPrevious(null);
+			next = null;
+		}
+	}
+	
+	public boolean last(){
+		return next == null;
+	}
+	
+	public boolean first(){
+		return previous == null;
+	}
+
 //Static methods
 	
 	public static <V extends DoublyLinkedPanel<V>> void link(V first, V second){
@@ -55,6 +70,25 @@ public class DoublyLinkedPanel<T> extends JPanel{
 			forEach.accept(i, newField);
 			DoublyLinkedPanel.link(prevField, newField);
 			prevField = newField;
+		}
+	}
+
+	public static <V extends DoublyLinkedPanel<V>> void forAll(Consumer<V> forEach, V start){
+		//For the given
+		forEach.accept(start);
+		
+		//For all previous
+		V prev = start;
+		while(!prev.first()){
+			prev = prev.getPrevious();
+			forEach.accept(prev);
+		}
+		
+		//For all next
+		V next = start;
+		while(!next.last()){
+			next = next.getNext();
+			forEach.accept(next);
 		}
 	}
 }

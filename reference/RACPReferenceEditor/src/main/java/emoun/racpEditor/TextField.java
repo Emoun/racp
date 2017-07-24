@@ -3,92 +3,174 @@ package emoun.racpEditor;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.util.ArrayList;
+import java.util.List;
 
-public class TextField  extends DoublyLinkedPanel<TextField>{
+import emoun.racpEditor.listeners.TextFieldMouseListener;
+
+public class TextField  extends LinkedDisplay<TextField,Byte>{
 
 //Fields	
 	public static final byte DEFAULT_DISPLAY = 32;
 	
-	private int column;
 	private int row;
 	
 	private byte display;
-	private boolean active = false;
 	private boolean focus = false;
-	private boolean partOfTab = false;
+	
+	/**
+	 * The size the tab should be
+	 */
+	private int alignment;
 	
 //Constructors
-	public TextField(int column, int row){
-		this.column = column;
+	public TextField(int row){
 		this.row = row;
-		setBackground(Color.WHITE);
-		Dimension dimension = new Dimension(RACPReferenceFont.WIDTH, RACPReferenceFont.HEIGHT);
-		setPreferredSize(dimension);
-		setMaximumSize(dimension);
-		setMinimumSize(dimension);
+		setBackground(Color.gray);
 		
-		clear();
+		display = DEFAULT_DISPLAY;
+		resetAlignment();
 	}
 	
 //Methods
 	
+	public void setAlignment(int x){
+		alignment = x;
+		Dimension d = new Dimension((RACPReferenceFont.WIDTH)*x, RACPReferenceFont.HEIGHT);
+		setPreferredSize(d);
+		setMaximumSize(d);
+		setMinimumSize(d);
+	}
+	
 	@Override
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
+
 		if(!focus){
-			if(Main.visibleWhiteSpaceCharacters && (partOfTab()?(getNext() == null) || !getNext().partOfTab():active() && (display != 9))){
-				g.drawImage(Main.fontVisibleWhitespace.glyph[display], 0, 0, null);
+			if(Main.visibleWhiteSpaceCharacters){
+				if(last()){
+					if(getParentLine().last()){
+						g.drawImage(Main.font.glyph[DEFAULT_DISPLAY], 0, 0, null);
+					}else{
+						g.drawImage(Main.fontVisibleWhitespace.glyph[10], 0, 0, null);
+					}
+				}else if(displayingTab()){
+					for(int i = 0; i<alignment-1; i++){
+						g.drawImage(Main.font.glyph[DEFAULT_DISPLAY], RACPReferenceFont.WIDTH*i, 0, null);
+					}
+					g.drawImage(Main.fontVisibleWhitespace.glyph[9], RACPReferenceFont.WIDTH*(alignment-1), 0, null);
+				}else{
+					g.drawImage(Main.fontVisibleWhitespace.glyph[displaying()], 0, 0, null);
+				}
 			}else{
-				g.drawImage(Main.font.glyph[display], 0, 0, null);
+				for(int i = 0; i<alignment; i++){
+					g.drawImage(Main.font.glyph[DEFAULT_DISPLAY], RACPReferenceFont.WIDTH*i, 0, null);
+				}
+				g.drawImage(Main.font.glyph[displaying()], 0, 0, null);
 			}
 		}else{
-			if(Main.visibleWhiteSpaceCharacters && (partOfTab()?(getNext() == null) || !getNext().partOfTab():active() && (display != 9))){
-				g.drawImage(Main.fontVisibleWhitespaceInv.glyph[display], 0, 0, null);
+			if(Main.visibleWhiteSpaceCharacters){
+				if(last()){
+					if(getParentLine().last()){
+						g.drawImage(Main.fontInv.glyph[DEFAULT_DISPLAY], 0, 0, null);
+					}else{
+						g.drawImage(Main.fontVisibleWhitespaceInv.glyph[10], 0, 0, null);
+					}
+				}else if(displayingTab()){
+					g.drawImage(Main.fontInv.glyph[DEFAULT_DISPLAY], 0, 0, null);
+					for(int i = 1; i<alignment-1; i++){
+						g.drawImage(Main.font.glyph[DEFAULT_DISPLAY], RACPReferenceFont.WIDTH*i, 0, null);
+					}
+					g.drawImage(Main.fontVisibleWhitespace.glyph[9], RACPReferenceFont.WIDTH*(alignment-1), 0, null);
+				}else{
+					g.drawImage(Main.fontVisibleWhitespaceInv.glyph[displaying()], 0, 0, null);
+				}
 			}else{
-				g.drawImage(Main.fontInv.glyph[display], 0, 0, null);
+				g.drawImage(Main.fontInv.glyph[DEFAULT_DISPLAY], 0, 0, null);
+				for(int i = 1; i<alignment; i++){
+					g.drawImage(Main.font.glyph[DEFAULT_DISPLAY], RACPReferenceFont.WIDTH*i, 0, null);
+				}
+				g.drawImage(Main.fontInv.glyph[displaying()], 0, 0, null);
 			}
 		}
 	}
 	
-	public void display(byte c){
+	public void splitLine(){
+		List<Byte> displayingNext = displayingNext();
+		System.out.println(displayingNext);
+		makeLast();
+		
+		if(getParentLine().last()){
+			TextLine newLine = new TextLine(this.row()+1);
+			DoublyLinkedPanel.link(getParentLine(), newLine);
+			getParentLine().getParent().add(newLine);
+			newLine.display(displayingNext);
+		}else{
+			getParentLine().getNext().pushAndDisplay(displayingNext);
+		}
+	}
+	
+	@Override
+	public void display(Byte c) {
+		if(last()){
+			TextField newField = newDisplay();
+			DoublyLinkedPanel.link(this, newField);
+			getParentLine().add(newField);
+		}
 		display = c;
-		active = true;
-		partOfTab = false;
-		repaint();
+		resetAlignment();
 	}
 	
-	public void clear(){
+	@Override
+	public void pushAndDisplay(Byte c){
+		if(last()){
+			TextField newDis = newDisplay();
+			DoublyLinkedPanel.link(this, newDis);
+			getParent().add(newDis);
+			display(c);
+		}else{
+			super.pushAndDisplay(c);
+		}
+	}
+	
+	@Override
+	public TextField newDisplay() {
+		TextField f = new TextField(row());
+		TextFieldMouseListener listener = new TextFieldMouseListener(f);
+		f.addMouseListener(listener);
+		return f;
+	}
+	
+	@Override
+	public Byte displaying(){
+		if(last()){
+			display = DEFAULT_DISPLAY;
+			setAlignment(1);
+		}
+		return this.display;
+	}
+	
+	public List<Byte> displayingNext(){
+		List<Byte> result = new ArrayList<Byte>();
+		TextField f = this;
+		System.out.println("(" + row + ", " + column() + ") -> " + f.getNext());
+		while(!f.last()){
+			result.add(f.displaying());
+			f = f.getNext();
+		}
+		return result;
+	}
+	
+	public void makeLast(){
+		if(!last()){
+			getNext().makeLast();
+			getNext().clear();
+		}
 		display = DEFAULT_DISPLAY;
-		active = false;
-		partOfTab = false;
-		repaint();
+		resetAlignment();
 	}
-	
-	
 	
 	public void focus(){
-		if(active){
-			setFocused();
-		}else{
-			if (getPrevious() != null){
-				if((getPrevious().active() || getPrevious().partOfTab()) && !partOfTab()){
-					setFocused();
-				}else{
-					getPrevious().focus();
-				}
-			}else{
-				TextLine prevLine = ((TextLine) getParent()).getPrevious();
-				if(prevLine != null){
-					prevLine.focusLast();
-				}else{
-					//First field, and file is empty
-					setFocused();
-				}
-			}
-		}
-	}
-
-	private void setFocused() {
 		this.focus = true;
 		Main.focusedFields.add(this);
 		repaint();
@@ -99,74 +181,86 @@ public class TextField  extends DoublyLinkedPanel<TextField>{
 		repaint();
 	}
 	
-	public void displayAndPass(byte c){
-		if(getNext() != null){
-			if(active){
-				getNext().displayAndPass(display);
-			}else if(partOfTab()){
-				getNext().tabifyAndPass();
-			}
-		}
-		display(c);
-	}
-
-	public void tabify(){
-		this.partOfTab = true;
-		this.display = 9;
-		repaint();
-	}
-	
-	public void tabifyAndPass(){
-		if(getNext() != null){
-			if(partOfTab()){
-				getNext().tabifyAndPass();
-			}else if(active){
-				getNext().displayAndPass(display);
-			}
-		}
-		clear();
-		tabify();
-	}
-
 	public void focusNext(){
-		if(!getNext().partOfTab()){
-			getNext().focus();
+		if(last()){
+			getParentLine().getNext().getField(0).focus();
 		}else{
-			getNext().focusNext();
+			getNext().focus();
+		}
+	}
+		
+	public TextLine getParentLine(){
+		return (TextLine) getParent();
+	}
+	
+	/**
+	 * Aligns the fields by enlarging one so that they both end at the same column
+	 * @param other
+	 * @return
+	 */
+	public void alignWith(TextField other){
+		
+		if(!this.displayingTab()){
+			throw new IllegalArgumentException("This field is not displaying tab.");
+		}
+		if(!other.displayingTab()){
+			throw new IllegalArgumentException("Other field is not displaying tab.");
+		}
+		
+		
+		int thisCol = nextColumn();
+		int otherCol = other.nextColumn();
+				
+		if(thisCol > otherCol){
+			other.setAlignment(other.alignment + (thisCol - otherCol));
+		}else if(thisCol < otherCol){
+			setAlignment(this.alignment + (otherCol - thisCol));
 		}
 	}
 	
-	public byte clearAndPull(){
-		byte previousValue = display;
-		clear();
-		if(getNext() != null){
-			if(getNext().active()){
-				display(getNext().clearAndPull());
-			}else if(getNext().partOfTab()){
-				getNext().clearAndPull();
-				tabify();
-			}
-		}
-		return previousValue;
+	public void resetAlignment(){
+		setAlignment(displayingTab()? 4:1);
 	}
+	
 //Accessors
+	
+	/**
+	 * The first column occupied by this field.
+	 * @return
+	 */
 	public int column(){
-		return column;
+		if(getPrevious() == null){
+			return 0;
+		}else{
+			return getPrevious().nextColumn();
+		}
+	}
+	
+	/**
+	 * The first column after this field and not occupied by it.
+	 * @return
+	 */
+	public int nextColumn(){
+		int next = 0;
+		
+		if(!first()){
+			next = getPrevious().nextColumn() ;
+		}
+		return next + alignment;
 	}
 	
 	public int row(){
 		return row;
 	}
-	
-	public boolean active(){
-		return this.active;
+			
+	public boolean displayingTab(){
+		return !last()? displaying() == 9: false;
 	}
+
 	
-	public byte displaying(){
-		return this.display;
-	}
+//Static methods
 	
-	public boolean partOfTab(){
-		return this.partOfTab;
+	public static TextField newTextField(int row){
+		return (new TextField(row)).newDisplay();
 	}
 }

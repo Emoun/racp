@@ -28,7 +28,6 @@ public class TextFieldMouseListener implements MouseListener{
 	public void mousePressed(MouseEvent e) {
 		Main.clearFocusedFields();
 		field.focus();
-//		Main.repaintFocusedFields();
 		Main.window.updateFocusTracker();
 	}
 
