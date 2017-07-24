@@ -134,6 +134,16 @@ public class TextField  extends LinkedDisplay<TextField,Byte>{
 	}
 	
 	@Override
+	public Byte pullDisplayAndClearLast() {
+		if(!last() && getNext().last()){
+			getNext().pullDisplayAndClearLast();
+			return displaying();
+		}else{
+			return super.pullDisplayAndClearLast();
+		}
+	};
+	
+	@Override
 	public TextField newDisplay() {
 		TextField f = new TextField(row());
 		TextFieldMouseListener listener = new TextFieldMouseListener(f);

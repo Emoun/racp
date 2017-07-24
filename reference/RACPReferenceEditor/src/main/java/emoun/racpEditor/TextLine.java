@@ -102,6 +102,8 @@ public class TextLine extends LinkedDisplay<TextLine,List<Byte>>{
 				unifyGroupNext(empty);
 			}
 		}
+		revalidate();
+		repaint();
 	}
 	
 	public void resetAlignment(){

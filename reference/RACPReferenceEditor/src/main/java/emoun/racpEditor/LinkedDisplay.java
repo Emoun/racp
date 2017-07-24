@@ -28,12 +28,16 @@ public abstract class LinkedDisplay<T extends LinkedDisplay<T,K>,K> extends Doub
 	}
 	
 	public K pullDisplayAndClearLast(){
+		System.out.println("Pull");
 		if(last()){
+			System.out.println("Last");
 			clear();
-			return null;
+			return displaying();
 		}else{
 			K old = displaying();
-			display(getNext().pullDisplayAndClearLast());
+			K nextDisp = getNext().pullDisplayAndClearLast();
+			display(nextDisp);
+			System.out.println("" + old + "->" + displaying());
 			return old;
 		}
 	}

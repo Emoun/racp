@@ -133,7 +133,7 @@ public class KeyboardListener implements KeyListener{
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-//		System.out.println("Key Pressed: (KeyChar):" + e.getKeyChar() + " (KeyCode):" + e.getKeyCode());
+		System.out.println("Key Pressed: (KeyChar):" + e.getKeyChar() + " (KeyCode):" + e.getKeyCode());
 		
 		// If usual character is entered, then just print it
 		if(pureKeys.contains((byte)e.getKeyChar())){
@@ -142,6 +142,10 @@ public class KeyboardListener implements KeyListener{
 			pressedKeys.add(e.getKeyCode());
 			if(pressedKeysAre(VK_CONTROL, VK_W)){
 				window.invertVisibleWhitespace();
+			}else if(pressedKeysAre(VK_BACK_SPACE)){
+				window.backspace();
+			}else if(pressedKeysAre(VK_DELETE)){
+				window.delete();
 			}else{
 //				System.out.println("Contains: " + pressedKeys);
 			}

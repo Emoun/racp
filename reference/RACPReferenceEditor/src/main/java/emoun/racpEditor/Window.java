@@ -6,9 +6,12 @@ import java.awt.FlowLayout;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+
 import org.apache.commons.io.FileUtils;
 
 import emoun.racpEditor.listeners.KeyboardListener;
@@ -80,6 +83,60 @@ public class Window extends JFrame{
 			f.focusNext();
 			f.getParentLine().unifyGroup();
 			updateFocusTracker();
+		}else if(Main.focusedFields.size() == 0){
+			throw new IllegalArgumentException("No focus");
+		}else{
+			throw new IllegalArgumentException("Not supporting multiple select");
+		}
+	}
+	
+	public void delete(){
+		System.out.println("Enter delete");
+		
+		if(Main.focusedFields.size() == 1){
+			TextField f = Main.focusedFields.get(0);
+			TextLine l = f.getParentLine();
+			Main.clearFocusedFields();
+			if(!f.last()){
+				f.pullDisplayAndClearLast();
+			}else{
+				if(l.last()){
+				}else{
+					TextLine nextL = l.getNext();
+					List<Byte> disp = l.displaying();
+					disp.addAll(nextL.displaying());
+					l.display(disp);
+					nextL.pullDisplayAndClearLast();
+				}
+			}
+			f.focus();
+			l.unifyGroup();
+		}else if(Main.focusedFields.size() == 0){
+			throw new IllegalArgumentException("No focus");
+		}else{
+			throw new IllegalArgumentException("Not supporting multiple select");
+		}
+	}
+	
+	public void backspace(){
+		System.out.println("Enter backspace");
+		
+		if(Main.focusedFields.size() == 1){
+			TextField f = Main.focusedFields.get(0);
+			Main.clearFocusedFields();
+			if(f.first()){
+				TextLine l = f.getParentLine();
+				if(l.first()){
+					f.focus();
+				}else{
+					TextLine prevL = l.getPrevious();
+					prevL.getField(prevL.getComponentCount()-1).focus();
+					delete();
+				}
+			}else{
+				f.getPrevious().focus();
+				delete();
+			}
 		}else if(Main.focusedFields.size() == 0){
 			throw new IllegalArgumentException("No focus");
 		}else{
