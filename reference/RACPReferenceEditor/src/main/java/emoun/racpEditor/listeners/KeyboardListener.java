@@ -146,6 +146,36 @@ public class KeyboardListener implements KeyListener{
 				window.backspace();
 			}else if(pressedKeysAre(VK_DELETE)){
 				window.delete();
+			}else if(pressedKeysAre(17,18,VK_Q)){
+				window.typeCharacter((byte)(10 + 1));
+			}else if(pressedKeysAre(17,18,VK_W)){
+				window.typeCharacter((byte)(10 + 2));
+			}else if(pressedKeysAre(17,18,VK_E)){
+				window.typeCharacter((byte)(10 + 3));
+			}else if(pressedKeysAre(17,18,VK_R)){
+				window.typeCharacter((byte)(10 + 4));
+			}else if(pressedKeysAre(17,18,VK_T)){
+				window.typeCharacter((byte)(10 + 5));
+			}else if(pressedKeysAre(17,18,VK_A)){
+				window.typeCharacter((byte)(10 + 6));
+			}else if(pressedKeysAre(17,18,VK_S)){
+				window.typeCharacter((byte)(10 + 7));
+			}else if(pressedKeysAre(17,18,VK_D)){
+				window.typeCharacter((byte)(10 + 8));
+			}else if(pressedKeysAre(17,18,VK_F)){
+				window.typeCharacter((byte)(10 + 9));
+			}else if(pressedKeysAre(17,18,VK_G)){
+				window.typeCharacter((byte)(10 + 10));
+			}else if(pressedKeysAre(17,18,VK_Z)){
+				window.typeCharacter((byte)(10 + 11));
+			}else if(pressedKeysAre(17,18,VK_X)){
+				window.typeCharacter((byte)(10 + 12));
+			}else if(pressedKeysAre(17,18,VK_C)){
+				window.typeCharacter((byte)(10 + 13));
+			}else if(pressedKeysAre(17,18,VK_V)){
+				window.typeCharacter((byte)(10 + 14));
+			}else if(pressedKeysAre(17,18,VK_B)){
+				window.typeCharacter((byte)(10 + 15));
 			}else{
 //				System.out.println("Contains: " + pressedKeys);
 			}
@@ -161,6 +191,9 @@ public class KeyboardListener implements KeyListener{
 //Private methods
 	
 	public boolean pressedKeysAre(int... keys){
+		if(keys.length != pressedKeys.size()){
+			return false;
+		}
 		boolean containsAll = true;
 		
 		for(int k: keys){
