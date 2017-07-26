@@ -181,12 +181,14 @@ public class TextField  extends LinkedDisplay<TextField,Byte>{
 	}
 	
 	public void focus(){
+//		System.out.println("Focus: " + this);
 		this.focus = true;
 		Main.focusedFields.add(this);
 		repaint();
 	}
 	
 	public void unfocus(){
+//		System.out.println("Unfocus: " + this);
 		this.focus = false;
 		repaint();
 	}
@@ -232,6 +234,10 @@ public class TextField  extends LinkedDisplay<TextField,Byte>{
 		setAlignment(displayingTab()? 4:1);
 	}
 	
+	@Override
+	public String toString(){
+		return "TextField(" + row() + ","+column()+")["+displaying()+","+(displayingTab()?"tabbed":"") + "," + (last()?"last":"") + "," + (focus?"focus":"") +"]";
+	}
 //Accessors
 	
 	/**

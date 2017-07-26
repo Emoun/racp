@@ -1,12 +1,9 @@
 package emoun.racpEditor;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.util.ArrayList;
 import java.util.List;
-
-import emoun.racpEditor.listeners.TextFieldMouseListener;
 
 
 public class TextLine extends LinkedDisplay<TextLine,List<Byte>>{
@@ -32,7 +29,7 @@ public class TextLine extends LinkedDisplay<TextLine,List<Byte>>{
 		getField(getComponentCount()-1).focus();
 	}
 	
-	public void addDisplaying(ArrayList<Byte> addTo){
+	public void addDisplaying(List<Byte> addTo){
 		for(int i = 0; i< getComponentCount()-1; i++){
 			TextField t = getField(i);
 			

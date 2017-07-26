@@ -22,7 +22,6 @@ public class Window extends JFrame{
 	public File currentFile ;
 	private boolean changed = false;
 	private TextArea textArea;
-	private ArrayList<Byte> content;
 	private HelpWindow help;
 //Constructors
 	
@@ -48,7 +47,6 @@ public class Window extends JFrame{
 		add(scroller);
 		pack();
 		setVisible(true);
-		content = new ArrayList<Byte>();
 		textArea.defaultFocus();
 		updateFocusTracker();
 	}
@@ -56,10 +54,13 @@ public class Window extends JFrame{
 	public Window(File f) throws IOException{
 		this();
 		this.currentFile = f;
+		List<Byte> content = new ArrayList<Byte>();
 		for(byte c: FileUtils.readFileToByteArray(f)){
 			content.add(c);
 		}
 		textArea.display(content);
+		Main.clearFocusedFields();
+		textArea.defaultFocus();
 		textArea.repaint();
 		updateFocusTracker();
 	}
@@ -71,10 +72,11 @@ public class Window extends JFrame{
 	}
 	
 	public void typeCharacter(byte c){
-//		System.out.println("type: " + c);
+		System.out.println("type: " + c);
 		
 		if(Main.focusedFields.size() == 1){
 			TextField f = Main.focusedFields.get(0);
+			System.out.println("Field: (" + f.row() +"," + f.column() +")");
 			if(c == 10){// newline
 				f.splitLine();
 			}else{
@@ -87,7 +89,7 @@ public class Window extends JFrame{
 		}else if(Main.focusedFields.size() == 0){
 			throw new IllegalArgumentException("No focus");
 		}else{
-			throw new IllegalArgumentException("Not supporting multiple select");
+			throw new IllegalArgumentException("Not supporting multiple select:" + Main.focusedFields);
 		}
 	}
 	
@@ -158,5 +160,18 @@ public class Window extends JFrame{
 		}else{
 			help.setVisible(!help.isVisible());
 		}
+	}
+
+	public void newDocument(){
+		System.out.println("New document");
+		
+		Main.clearFocusedFields();		
+		textArea.display(new ArrayList<Byte>());
+		textArea.repaint();
+		textArea.defaultFocus();
+		currentFile = null;
+		
+		updateFocusTracker();
+		
 	}
 }

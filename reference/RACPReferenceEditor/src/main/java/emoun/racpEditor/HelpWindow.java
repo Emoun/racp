@@ -25,8 +25,12 @@ public class HelpWindow extends JFrame{
 					"<td>Open help windown (as you probably know if you can see this)</th>" +
 				"</tr>"+
 				"<tr>"+
+					"<td>ctrl+n</th>" +
+					"<td>Open new file</th>" +
+				"</tr>"+
+				"<tr>"+
 					"<td>ctrl+s</th>" +
-					"<td>Save document</th>" +
+					"<td>Save file</th>" +
 				"</tr>"+	
 				"<tr>"+
 					"<td>ctrl+w</th>" +
