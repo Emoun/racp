@@ -23,6 +23,7 @@ public class Window extends JFrame{
 	private boolean changed = false;
 	private TextArea textArea;
 	private ArrayList<Byte> content;
+	private HelpWindow help;
 //Constructors
 	
 	public Window(){
@@ -149,5 +150,13 @@ public class Window extends JFrame{
 		Main.visibleWhiteSpaceCharacters = !Main.visibleWhiteSpaceCharacters;
 		textArea.repaint();
 	}
-
+	
+	public void invokeHelp(){
+		System.out.println("Help");
+		if(help == null){
+			help = new HelpWindow();
+		}else{
+			help.setVisible(!help.isVisible());
+		}
+	}
 }
