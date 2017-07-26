@@ -21,6 +21,10 @@ public class HelpWindow extends JFrame{
 					"<th style=\"text-align: left\">Function</th>" +
 				"</tr>"+
 				"<tr>"+
+					"<td>ctrl+h</th>" +
+					"<td>Open help windown (as you probably know if you can see this)</th>" +
+				"</tr>"+
+				"<tr>"+
 					"<td>ctrl+s</th>" +
 					"<td>Save document</th>" +
 				"</tr>"+	
