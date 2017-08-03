@@ -48,6 +48,21 @@ public class TextArea extends JPanel{
 		return (TextLine) getComponent(index);
 	}
 
+	public List<Byte> displaying(){
+		List<Byte> result = new ArrayList<Byte>();
+				
+		assert getComponentCount() > 0;
+		
+		for(int i = 0; i<getComponentCount()-1; i++){
+			result.addAll(getLine(i).displaying());
+			result.add((byte)10);
+		}
+		
+		result.addAll(getLine(getComponentCount()-1).displaying());
+		
+		return result;
+	}
+	
 	public void defaultFocus(){
 		getLine(0).getField(0).focus();
 	}

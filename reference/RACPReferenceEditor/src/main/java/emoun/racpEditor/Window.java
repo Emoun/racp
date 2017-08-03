@@ -4,10 +4,13 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -174,4 +177,58 @@ public class Window extends JFrame{
 		updateFocusTracker();
 		
 	}
+
+	public void save(){
+		System.out.println("Save");
+		
+		if(currentFile == null){
+			System.out.println("Save untitled.");
+			
+			JFileChooser fileChooser = new JFileChooser();
+			int returnVal =fileChooser.showOpenDialog(this);
+			
+			if( returnVal == JFileChooser.APPROVE_OPTION){
+				File selectedFile = fileChooser.getSelectedFile();
+				System.out.println("File approved: " + selectedFile);
+				
+				if(selectedFile.exists()){
+					throw new IllegalArgumentException("Overwrite unimplemented");
+				}else{
+					try {
+						FileOutputStream out = new FileOutputStream(selectedFile);
+						try {
+							List<Byte> contents = textArea.displaying();
+							byte[] result = new byte[contents.size()];
+							
+							for(int i = 0; i<result.length; i++){
+								result[i] = contents.get(i);
+							}
+							
+							out.write(result);
+							currentFile = selectedFile; 
+							changed = false;
+							updateFocusTracker();
+						} catch (IOException e) {
+							throw new IllegalStateException("Cannot write to file", e);
+						}
+						try {
+							out.flush();
+							out.close();
+						} catch (IOException e) {
+							throw new IllegalStateException("Cannot flush or close", e);
+						}
+					} catch (FileNotFoundException e) {
+						throw new IllegalStateException("Not possible", e);
+					}
+					System.out.println("Save successfull.");
+				}
+			}else{
+				System.out.println("File not approved: " + returnVal);
+			}
+			
+		}else{
+			throw new IllegalArgumentException("Overwrite unimplemented.");
+		}
+	}
+	
 }

@@ -146,6 +146,8 @@ public class KeyboardListener implements KeyListener{
 				window.invokeHelp();
 			}else if(pressedKeysAre(VK_CONTROL, VK_N)){
 				window.newDocument();
+			}else if(pressedKeysAre(VK_CONTROL, VK_S)){
+				window.save();
 			}else if(pressedKeysAre(VK_BACK_SPACE)){
 				window.backspace();
 			}else if(pressedKeysAre(VK_DELETE)){
