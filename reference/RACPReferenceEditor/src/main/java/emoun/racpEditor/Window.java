@@ -71,7 +71,7 @@ public class Window extends JFrame{
 //Methods
 	public void updateFocusTracker(){
 		TextField f = Main.focusedFields.get(0);
-		setTitle(""+ f.row() +":"+ f.column() + " | " + ((currentFile != null)?currentFile.getAbsolutePath():"Untitled"));
+		setTitle(""+ f.row() +":"+ f.column()+ (changed? "*": "") + " | " + ((currentFile != null)?currentFile.getAbsolutePath():"Untitled"));
 	}
 	
 	public void typeCharacter(byte c){
@@ -88,6 +88,7 @@ public class Window extends JFrame{
 			Main.clearFocusedFields();
 			f.focusNext();
 			f.getParentLine().unifyGroup();
+			changed = true;
 			updateFocusTracker();
 		}else if(Main.focusedFields.size() == 0){
 			throw new IllegalArgumentException("No focus");
@@ -117,6 +118,8 @@ public class Window extends JFrame{
 			}
 			f.focus();
 			l.unifyGroup();
+			changed = true;
+			updateFocusTracker();
 		}else if(Main.focusedFields.size() == 0){
 			throw new IllegalArgumentException("No focus");
 		}else{
@@ -134,6 +137,7 @@ public class Window extends JFrame{
 				TextLine l = f.getParentLine();
 				if(l.first()){
 					f.focus();
+					return;
 				}else{
 					TextLine prevL = l.getPrevious();
 					prevL.getField(prevL.getComponentCount()-1).focus();
@@ -143,6 +147,8 @@ public class Window extends JFrame{
 				f.getPrevious().focus();
 				delete();
 			}
+			changed = true;
+			updateFocusTracker();
 		}else if(Main.focusedFields.size() == 0){
 			throw new IllegalArgumentException("No focus");
 		}else{
@@ -173,7 +179,7 @@ public class Window extends JFrame{
 		textArea.repaint();
 		textArea.defaultFocus();
 		currentFile = null;
-		
+		changed = false;
 		updateFocusTracker();
 		
 	}
@@ -192,43 +198,46 @@ public class Window extends JFrame{
 				System.out.println("File approved: " + selectedFile);
 				
 				if(selectedFile.exists()){
-					throw new IllegalArgumentException("Overwrite unimplemented");
+					throw new IllegalArgumentException("Overwrite unimplemented.");
 				}else{
-					try {
-						FileOutputStream out = new FileOutputStream(selectedFile);
-						try {
-							List<Byte> contents = textArea.displaying();
-							byte[] result = new byte[contents.size()];
-							
-							for(int i = 0; i<result.length; i++){
-								result[i] = contents.get(i);
-							}
-							
-							out.write(result);
-							currentFile = selectedFile; 
-							changed = false;
-							updateFocusTracker();
-						} catch (IOException e) {
-							throw new IllegalStateException("Cannot write to file", e);
-						}
-						try {
-							out.flush();
-							out.close();
-						} catch (IOException e) {
-							throw new IllegalStateException("Cannot flush or close", e);
-						}
-					} catch (FileNotFoundException e) {
-						throw new IllegalStateException("Not possible", e);
-					}
+					forceSave(selectedFile);
 					System.out.println("Save successfull.");
 				}
 			}else{
 				System.out.println("File not approved: " + returnVal);
 			}
-			
 		}else{
-			throw new IllegalArgumentException("Overwrite unimplemented.");
+			System.out.println("Saving opened file");
+			forceSave(currentFile);
 		}
 	}
-	
+
+	private void forceSave(File selectedFile) {
+		try {
+			FileOutputStream out = new FileOutputStream(selectedFile);
+			try {
+				List<Byte> contents = textArea.displaying();
+				byte[] result = new byte[contents.size()];
+				
+				for(int i = 0; i<result.length; i++){
+					result[i] = contents.get(i);
+				}
+				
+				out.write(result);
+				currentFile = selectedFile; 
+				changed = false;
+				updateFocusTracker();
+			} catch (IOException e) {
+				throw new IllegalStateException("Cannot write to file", e);
+			}
+			try {
+				out.flush();
+				out.close();
+			} catch (IOException e) {
+				throw new IllegalStateException("Cannot flush or close", e);
+			}
+		} catch (FileNotFoundException e) {
+			throw new IllegalStateException("Not possible", e);
+		}
+	}
 }

@@ -133,7 +133,7 @@ public class KeyboardListener implements KeyListener{
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		System.out.println("Key Pressed: (KeyChar):" + e.getKeyChar() + " (KeyCode):" + e.getKeyCode());
+		System.out.println("Key Pressed: (KeyChar):" + e.getKeyChar() + " (KeyCode):" + e.getKeyCode() + " (Pressed):" + pressedKeys);
 		
 		// If usual character is entered, then just print it
 		if(pureKeys.contains((byte)e.getKeyChar())){
@@ -148,42 +148,43 @@ public class KeyboardListener implements KeyListener{
 				window.newDocument();
 			}else if(pressedKeysAre(VK_CONTROL, VK_S)){
 				window.save();
+				pressedKeys.clear();
 			}else if(pressedKeysAre(VK_BACK_SPACE)){
 				window.backspace();
 			}else if(pressedKeysAre(VK_DELETE)){
 				window.delete();
-			}else if(pressedKeysAre(17,18,VK_Q)){
+			}else if(pressedKeysAre(VK_CONTROL, VK_ALT, VK_Q)){
 				window.typeCharacter((byte)(10 + 1));
-			}else if(pressedKeysAre(17,18,VK_W)){
+			}else if(pressedKeysAre(VK_CONTROL, VK_ALT, VK_W)){
 				window.typeCharacter((byte)(10 + 2));
-			}else if(pressedKeysAre(17,18,VK_E)){
+			}else if(pressedKeysAre(VK_CONTROL, VK_ALT, VK_E)){
 				window.typeCharacter((byte)(10 + 3));
-			}else if(pressedKeysAre(17,18,VK_R)){
+			}else if(pressedKeysAre(VK_CONTROL, VK_ALT, VK_R)){
 				window.typeCharacter((byte)(10 + 4));
-			}else if(pressedKeysAre(17,18,VK_T)){
+			}else if(pressedKeysAre(VK_CONTROL, VK_ALT, VK_T)){
 				window.typeCharacter((byte)(10 + 5));
-			}else if(pressedKeysAre(17,18,VK_A)){
+			}else if(pressedKeysAre(VK_CONTROL, VK_ALT, VK_A)){
 				window.typeCharacter((byte)(10 + 6));
-			}else if(pressedKeysAre(17,18,VK_S)){
+			}else if(pressedKeysAre(VK_CONTROL, VK_ALT, VK_S)){
 				window.typeCharacter((byte)(10 + 7));
-			}else if(pressedKeysAre(17,18,VK_D)){
+			}else if(pressedKeysAre(VK_CONTROL, VK_ALT, VK_D)){
 				window.typeCharacter((byte)(10 + 8));
-			}else if(pressedKeysAre(17,18,VK_F)){
+			}else if(pressedKeysAre(VK_CONTROL, VK_ALT, VK_F)){
 				window.typeCharacter((byte)(10 + 9));
-			}else if(pressedKeysAre(17,18,VK_G)){
+			}else if(pressedKeysAre(VK_CONTROL, VK_ALT, VK_G)){
 				window.typeCharacter((byte)(10 + 10));
-			}else if(pressedKeysAre(17,18,VK_Z)){
+			}else if(pressedKeysAre(VK_CONTROL, VK_ALT, VK_Z)){
 				window.typeCharacter((byte)(10 + 11));
-			}else if(pressedKeysAre(17,18,VK_X)){
+			}else if(pressedKeysAre(VK_CONTROL, VK_ALT, VK_X)){
 				window.typeCharacter((byte)(10 + 12));
-			}else if(pressedKeysAre(17,18,VK_C)){
+			}else if(pressedKeysAre(VK_CONTROL, VK_ALT, VK_C)){
 				window.typeCharacter((byte)(10 + 13));
-			}else if(pressedKeysAre(17,18,VK_V)){
+			}else if(pressedKeysAre(VK_CONTROL, VK_ALT, VK_V)){
 				window.typeCharacter((byte)(10 + 14));
-			}else if(pressedKeysAre(17,18,VK_B)){
+			}else if(pressedKeysAre(VK_CONTROL, VK_ALT, VK_B)){
 				window.typeCharacter((byte)(10 + 15));
 			}else{
-//				System.out.println("Contains: " + pressedKeys);
+				System.out.println("No combination.");
 			}
 		}
 	}
@@ -192,6 +193,7 @@ public class KeyboardListener implements KeyListener{
 	public void keyReleased(KeyEvent e) {
 //		System.out.println("Key Released: (KeyChar):" + e.getKeyChar() + " (KeyCode):" + e.getKeyCode());
 		pressedKeys.remove(e.getKeyCode());
+		
 	}
 
 //Private methods
