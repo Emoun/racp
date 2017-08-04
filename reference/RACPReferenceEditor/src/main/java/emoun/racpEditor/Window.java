@@ -191,6 +191,8 @@ public class Window extends JFrame{
 			System.out.println("Save untitled.");
 			
 			JFileChooser fileChooser = new JFileChooser();
+			fileChooser.setApproveButtonText("Save");
+			fileChooser.setApproveButtonToolTipText("Save in this folder with the given name.");
 			int returnVal =fileChooser.showOpenDialog(this);
 			
 			if( returnVal == JFileChooser.APPROVE_OPTION){
