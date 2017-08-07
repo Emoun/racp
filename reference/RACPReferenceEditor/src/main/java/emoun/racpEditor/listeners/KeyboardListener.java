@@ -183,6 +183,14 @@ public class KeyboardListener implements KeyListener{
 				window.typeCharacter((byte)(10 + 14));
 			}else if(pressedKeysAre(VK_CONTROL, VK_ALT, VK_B)){
 				window.typeCharacter((byte)(10 + 15));
+			}else if(pressedKeysAre(VK_UP)){
+				window.arrowUp();
+			}else if(pressedKeysAre(VK_DOWN)){
+				window.arrowDown();
+			}else if(pressedKeysAre(VK_RIGHT)){
+				window.arrowRight();
+			}else if(pressedKeysAre(VK_LEFT)){
+				window.arrowLeft();
 			}else{
 				System.out.println("No combination.");
 			}

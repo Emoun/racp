@@ -160,10 +160,29 @@ public class TextLine extends LinkedDisplay<TextLine,List<Byte>>{
 		return result;
 	}
 
-
 	@Override
 	public TextLine newDisplay() {
 		return new TextLine(rowNr+1);
+	}
+	
+	public void focusColumn(int column){
+		int upto = getField(getComponentCount()-1).nextColumn();
+		if(column < 0){
+			throw new IllegalArgumentException("Negative column.");
+		}else if(column >= upto){
+			focusLast();
+			return;
+		}
+		
+		for(int i = 0; i<getComponentCount(); i++){
+			TextField f = getField(i);
+			
+			if(f.column()<= column && column < f.nextColumn()){
+				f.focus();
+				return;
+			}
+		}
+		throw new IllegalStateException("No field found to focus: '" + column + "'");
 	}
 	
 //Private methods

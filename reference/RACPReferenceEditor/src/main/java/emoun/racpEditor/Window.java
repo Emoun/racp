@@ -71,7 +71,7 @@ public class Window extends JFrame{
 //Methods
 	public void updateFocusTracker(){
 		TextField f = Main.focusedFields.get(0);
-		setTitle(""+ f.row() +":"+ f.column()+ (changed? "*": "") + " | " + ((currentFile != null)?currentFile.getAbsolutePath():"Untitled"));
+		setTitle(""+ f.row() +":"+ f.column() + " | " + (changed? "*": "")  + ((currentFile != null)?currentFile.getAbsolutePath():"Untitled"));
 	}
 	
 	public void typeCharacter(byte c){
@@ -241,5 +241,105 @@ public class Window extends JFrame{
 		} catch (FileNotFoundException e) {
 			throw new IllegalStateException("Not possible", e);
 		}
+	}
+
+	public void arrowUp(){
+		System.out.println("Arrow up.");
+		
+		if(Main.focusedFields.size() == 1){
+			TextField f = Main.focusedFields.get(0);
+			Main.clearFocusedFields();
+			
+			if(f.row() == 0){
+				//Cannot go further up, therefore focus stays
+				f.focus();
+			}else{
+				int newRow = f.row()-1;
+				textArea.getLine(newRow).focusColumn(f.column());
+			}
+			updateFocusTracker();
+		}else if(Main.focusedFields.size() == 0){
+			throw new IllegalArgumentException("No focus");
+		}else{
+			throw new IllegalArgumentException("Not supporting multiple select");
+		}
+		
+	}
+	
+	public void arrowDown(){
+		System.out.println("Arrow down.");
+		
+		if(Main.focusedFields.size() == 1){
+			TextField f = Main.focusedFields.get(0);
+			Main.clearFocusedFields();
+			
+			if(f.row() == (textArea.getComponentCount()-1)){
+				//Cannot go further down, therefore focus stays
+				f.focus();
+			}else{
+				int newRow = f.row() + 1;
+				textArea.getLine(newRow).focusColumn(f.column());
+			}
+			updateFocusTracker();
+		}else if(Main.focusedFields.size() == 0){
+			throw new IllegalArgumentException("No focus");
+		}else{
+			throw new IllegalArgumentException("Not supporting multiple select");
+		}
+		
+	}
+
+	public void arrowRight(){
+		System.out.println("Arrow right.");
+		
+		if(Main.focusedFields.size() == 1){
+			TextField f = Main.focusedFields.get(0);
+			Main.clearFocusedFields();
+			
+			if(f.last()){
+				if(f.getParentLine().last()){
+					//Cannot go further neither right nor down, therefore focus stays
+					f.focus();
+				}else{
+					//Cannot go further right, therefore go to start of next line
+					f.getParentLine().getNext().focusColumn(0);
+				}
+			}else{
+				f.focusNext();
+			}
+			updateFocusTracker();
+		}else if(Main.focusedFields.size() == 0){
+			throw new IllegalArgumentException("No focus");
+		}else{
+			throw new IllegalArgumentException("Not supporting multiple select");
+		}
+		
+	}
+	
+	public void arrowLeft(){
+		System.out.println("Arrow right.");
+		
+		if(Main.focusedFields.size() == 1){
+			TextField f = Main.focusedFields.get(0);
+			Main.clearFocusedFields();
+			
+			if(f.first()){
+				if(f.getParentLine().first()){
+					//Cannot go further neither left nor up, therefore focus stays
+					f.focus();
+				}else{
+					//Cannot go further left, therefore go to end of previous line
+					f.getParentLine().getPrevious().focusLast();
+				}
+			}else{
+				f.getPrevious().focus();
+			}
+			updateFocusTracker();
+		}else if(Main.focusedFields.size() == 0){
+			throw new IllegalArgumentException("No focus");
+		}else{
+			throw new IllegalArgumentException("Not supporting multiple select");
+		}
+		
 	}
 }
