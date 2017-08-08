@@ -149,6 +149,9 @@ public class KeyboardListener implements KeyListener{
 			}else if(pressedKeysAre(VK_CONTROL, VK_S)){
 				window.save();
 				pressedKeys.clear();
+			}else if(pressedKeysAre(VK_CONTROL, VK_L)){
+				window.load();
+				pressedKeys.clear();
 			}else if(pressedKeysAre(VK_BACK_SPACE)){
 				window.backspace();
 			}else if(pressedKeysAre(VK_DELETE)){

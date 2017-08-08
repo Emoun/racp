@@ -15,6 +15,10 @@ public class HelpWindow extends JFrame{
 			"<p>This editor is intended to showcase the RACP specification features."+
 			"<p>It is <b>not</b> intended to be a fully featured editor and is neither "+
 			"fast, efficient, nor user friendly.\n"+
+			"<p>Be careful when using this editor, as it never questions your actions. "
+			+ "For instance, if you load a file while having made changes to a previously loaded file, "
+			+ "the changes will be discarded without notice and the new file will be opened. "
+			+ "Closing the editor will likewise discard any changes. Additionally, there is no way to undo changes (popularly ctrl+z) except discarding them."+
 			"<table >" +
 				"<tr>"+
 					"<th style=\"text-align: left\">Keybind</th>" +
@@ -32,6 +36,10 @@ public class HelpWindow extends JFrame{
 					"<td>ctrl+s</th>" +
 					"<td>Save file</th>" +
 				"</tr>"+	
+				"<tr>"+
+					"<td>ctrl+l</th>" +
+					"<td>Load file</th>" +
+				"</tr>"+
 				"<tr>"+
 					"<td>ctrl+w</th>" +
 					"<td>Show/hide whitespace characters</th>" +

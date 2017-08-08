@@ -56,16 +56,7 @@ public class Window extends JFrame{
 	
 	public Window(File f) throws IOException{
 		this();
-		this.currentFile = f;
-		List<Byte> content = new ArrayList<Byte>();
-		for(byte c: FileUtils.readFileToByteArray(f)){
-			content.add(c);
-		}
-		textArea.display(content);
-		Main.clearFocusedFields();
-		textArea.defaultFocus();
-		textArea.repaint();
-		updateFocusTracker();
+		loadFile(f);
 	}
 	
 //Methods
@@ -214,35 +205,37 @@ public class Window extends JFrame{
 		}
 	}
 
-	private void forceSave(File selectedFile) {
-		try {
-			FileOutputStream out = new FileOutputStream(selectedFile);
-			try {
-				List<Byte> contents = textArea.displaying();
-				byte[] result = new byte[contents.size()];
-				
-				for(int i = 0; i<result.length; i++){
-					result[i] = contents.get(i);
+	public void load(){
+		System.out.println("Save");
+		
+		JFileChooser fileChooser = new JFileChooser(currentFile);
+		fileChooser.setApproveButtonText("Load");
+		fileChooser.setApproveButtonToolTipText("Load the chosen file into the editor.");
+		int returnVal =fileChooser.showOpenDialog(this);
+		
+		if( returnVal == JFileChooser.APPROVE_OPTION){
+			File selectedFile = fileChooser.getSelectedFile();
+			System.out.println("File approved: " + selectedFile);
+			
+			if(selectedFile.exists()){
+				if(selectedFile.canRead()){
+					try {
+						loadFile(selectedFile);
+					} catch (IOException e) {
+						throw new IllegalArgumentException("Error loading file.", e);
+					}
+				}else{
+					throw new IllegalArgumentException("Cannot read file");
 				}
-				
-				out.write(result);
-				currentFile = selectedFile; 
-				changed = false;
-				updateFocusTracker();
-			} catch (IOException e) {
-				throw new IllegalStateException("Cannot write to file", e);
+			}else{
+				throw new IllegalArgumentException("File does not exist");
 			}
-			try {
-				out.flush();
-				out.close();
-			} catch (IOException e) {
-				throw new IllegalStateException("Cannot flush or close", e);
-			}
-		} catch (FileNotFoundException e) {
-			throw new IllegalStateException("Not possible", e);
+		}else{
+			System.out.println("File not approved: " + returnVal);
 		}
+		
 	}
-
+	
 	public void arrowUp(){
 		System.out.println("Arrow up.");
 		
@@ -341,5 +334,49 @@ public class Window extends JFrame{
 			throw new IllegalArgumentException("Not supporting multiple select");
 		}
 		
+	}
+
+//Private methods
+	private void forceSave(File selectedFile) {
+		try {
+			FileOutputStream out = new FileOutputStream(selectedFile);
+			try {
+				List<Byte> contents = textArea.displaying();
+				byte[] result = new byte[contents.size()];
+				
+				for(int i = 0; i<result.length; i++){
+					result[i] = contents.get(i);
+				}
+				
+				out.write(result);
+				currentFile = selectedFile; 
+				changed = false;
+				updateFocusTracker();
+			} catch (IOException e) {
+				throw new IllegalStateException("Cannot write to file", e);
+			}
+			try {
+				out.flush();
+				out.close();
+			} catch (IOException e) {
+				throw new IllegalStateException("Cannot flush or close", e);
+			}
+		} catch (FileNotFoundException e) {
+			throw new IllegalStateException("Not possible", e);
+		}
+	}
+	
+	private void loadFile(File f) throws IOException{
+		this.currentFile = f;
+		List<Byte> content = new ArrayList<Byte>();
+		for(byte c: FileUtils.readFileToByteArray(f)){
+			content.add(c);
+		}
+		textArea.display(content);
+		Main.clearFocusedFields();
+		textArea.defaultFocus();
+		textArea.repaint();
+		changed = false;
+		updateFocusTracker();
 	}
 }
