@@ -11,7 +11,7 @@ import emoun.racpEditor.listeners.TextFieldMouseListener;
 public class TextField  extends LinkedDisplay<TextField,Byte>{
 
 //Fields	
-	public static final byte DEFAULT_DISPLAY = 32;
+	public static final byte DEFAULT_DISPLAY = CharacterSet.RACP_SPACE;
 	
 	private int row;
 	
@@ -52,13 +52,13 @@ public class TextField  extends LinkedDisplay<TextField,Byte>{
 					if(getParentLine().last()){
 						g.drawImage(Main.font.glyph[DEFAULT_DISPLAY], 0, 0, null);
 					}else{
-						g.drawImage(Main.fontVisibleWhitespace.glyph[10], 0, 0, null);
+						g.drawImage(Main.fontVisibleWhitespace.glyph[CharacterSet.RACP_NEWLINE], 0, 0, null);
 					}
 				}else if(displayingTab()){
 					for(int i = 0; i<alignment-1; i++){
 						g.drawImage(Main.font.glyph[DEFAULT_DISPLAY], RACPReferenceFont.WIDTH*i, 0, null);
 					}
-					g.drawImage(Main.fontVisibleWhitespace.glyph[9], RACPReferenceFont.WIDTH*(alignment-1), 0, null);
+					g.drawImage(Main.fontVisibleWhitespace.glyph[CharacterSet.RACP_TAB], RACPReferenceFont.WIDTH*(alignment-1), 0, null);
 				}else{
 					g.drawImage(Main.fontVisibleWhitespace.glyph[displaying()], 0, 0, null);
 				}
@@ -74,14 +74,14 @@ public class TextField  extends LinkedDisplay<TextField,Byte>{
 					if(getParentLine().last()){
 						g.drawImage(Main.fontInv.glyph[DEFAULT_DISPLAY], 0, 0, null);
 					}else{
-						g.drawImage(Main.fontVisibleWhitespaceInv.glyph[10], 0, 0, null);
+						g.drawImage(Main.fontVisibleWhitespaceInv.glyph[CharacterSet.RACP_NEWLINE], 0, 0, null);
 					}
 				}else if(displayingTab()){
 					g.drawImage(Main.fontInv.glyph[DEFAULT_DISPLAY], 0, 0, null);
 					for(int i = 1; i<alignment-1; i++){
 						g.drawImage(Main.font.glyph[DEFAULT_DISPLAY], RACPReferenceFont.WIDTH*i, 0, null);
 					}
-					g.drawImage(Main.fontVisibleWhitespace.glyph[9], RACPReferenceFont.WIDTH*(alignment-1), 0, null);
+					g.drawImage(Main.fontVisibleWhitespace.glyph[CharacterSet.RACP_TAB], RACPReferenceFont.WIDTH*(alignment-1), 0, null);
 				}else{
 					g.drawImage(Main.fontVisibleWhitespaceInv.glyph[displaying()], 0, 0, null);
 				}
@@ -272,7 +272,7 @@ public class TextField  extends LinkedDisplay<TextField,Byte>{
 	}
 			
 	public boolean displayingTab(){
-		return !last()? displaying() == 9: false;
+		return !last()? displaying() == CharacterSet.RACP_TAB: false;
 	}
 
 	

@@ -71,7 +71,7 @@ public class Window extends JFrame{
 		if(Main.focusedFields.size() == 1){
 			TextField f = Main.focusedFields.get(0);
 			System.out.println("Field: (" + f.row() +"," + f.column() +")");
-			if(c == 10){// newline
+			if(c == CharacterSet.RACP_NEWLINE){// newline
 				f.splitLine();
 			}else{
 				f.pushAndDisplay(c);

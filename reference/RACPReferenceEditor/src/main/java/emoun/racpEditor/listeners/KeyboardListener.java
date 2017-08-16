@@ -5,8 +5,8 @@ import java.awt.event.KeyListener;
 import java.util.Arrays;
 import java.util.HashSet;
 
+import emoun.racpEditor.CharacterSet;
 import emoun.racpEditor.Window;
-
 import static java.awt.event.KeyEvent.*;
 
 public class KeyboardListener implements KeyListener{
@@ -16,108 +16,6 @@ public class KeyboardListener implements KeyListener{
 	
 	private HashSet<Integer> pressedKeys = new HashSet<Integer>();
 	
-	public static HashSet<Byte> pureKeys = new HashSet<Byte>();
-	{
-		
-		pureKeys.add((byte)'\t');
-		pureKeys.add((byte)'\n');
-		pureKeys.add((byte)VK_ESCAPE);
-		pureKeys.add((byte)' ');
-		pureKeys.add((byte)'!');
-		pureKeys.add((byte)'"');
-		pureKeys.add((byte)'#');
-		pureKeys.add((byte)'$');
-		pureKeys.add((byte)'%');
-		pureKeys.add((byte)'&');
-		pureKeys.add((byte)'\'');
-		pureKeys.add((byte)'(');
-		pureKeys.add((byte)')');
-		pureKeys.add((byte)'*');
-		pureKeys.add((byte)'+');
-		pureKeys.add((byte)',');
-		pureKeys.add((byte)'-');
-		pureKeys.add((byte)'.');
-		pureKeys.add((byte)'/');
-		pureKeys.add((byte)'0');
-		pureKeys.add((byte)'1');
-		pureKeys.add((byte)'2');
-		pureKeys.add((byte)'3');
-		pureKeys.add((byte)'4');
-		pureKeys.add((byte)'5');
-		pureKeys.add((byte)'6');
-		pureKeys.add((byte)'7');
-		pureKeys.add((byte)'8');
-		pureKeys.add((byte)'9');
-		pureKeys.add((byte)':');
-		pureKeys.add((byte)';');
-		pureKeys.add((byte)'<');
-		pureKeys.add((byte)'=');
-		pureKeys.add((byte)'>');
-		pureKeys.add((byte)'?');
-		pureKeys.add((byte)'@');
-		pureKeys.add((byte)'A');
-		pureKeys.add((byte)'B');
-		pureKeys.add((byte)'C');
-		pureKeys.add((byte)'D');
-		pureKeys.add((byte)'E');
-		pureKeys.add((byte)'F');
-		pureKeys.add((byte)'G');
-		pureKeys.add((byte)'H');
-		pureKeys.add((byte)'I');
-		pureKeys.add((byte)'J');
-		pureKeys.add((byte)'K');
-		pureKeys.add((byte)'L');
-		pureKeys.add((byte)'M');
-		pureKeys.add((byte)'N');
-		pureKeys.add((byte)'O');
-		pureKeys.add((byte)'P');
-		pureKeys.add((byte)'Q');
-		pureKeys.add((byte)'R');
-		pureKeys.add((byte)'S');
-		pureKeys.add((byte)'T');
-		pureKeys.add((byte)'U');
-		pureKeys.add((byte)'V');
-		pureKeys.add((byte)'X');
-		pureKeys.add((byte)'W');
-		pureKeys.add((byte)'Y');
-		pureKeys.add((byte)'Z');
-		pureKeys.add((byte)'[');
-		pureKeys.add((byte)'\\');
-		pureKeys.add((byte)']');
-		pureKeys.add((byte)'^');
-		pureKeys.add((byte)'_');
-		pureKeys.add((byte)'a');
-		pureKeys.add((byte)'b');
-		pureKeys.add((byte)'c');
-		pureKeys.add((byte)'d');
-		pureKeys.add((byte)'e');
-		pureKeys.add((byte)'f');
-		pureKeys.add((byte)'g');
-		pureKeys.add((byte)'h');
-		pureKeys.add((byte)'i');
-		pureKeys.add((byte)'j');
-		pureKeys.add((byte)'k');
-		pureKeys.add((byte)'l');
-		pureKeys.add((byte)'m');
-		pureKeys.add((byte)'n');
-		pureKeys.add((byte)'o');
-		pureKeys.add((byte)'p');
-		pureKeys.add((byte)'q');
-		pureKeys.add((byte)'r');
-		pureKeys.add((byte)'s');
-		pureKeys.add((byte)'t');
-		pureKeys.add((byte)'u');
-		pureKeys.add((byte)'v');
-		pureKeys.add((byte)'x');
-		pureKeys.add((byte)'w');
-		pureKeys.add((byte)'y');
-		pureKeys.add((byte)'z');
-		pureKeys.add((byte)'{');
-		pureKeys.add((byte)'|');
-		pureKeys.add((byte)'}');
-		pureKeys.add((byte)'~');
-		
-	}
 //Constructors
 	
 	public KeyboardListener(Window window) {
@@ -135,9 +33,10 @@ public class KeyboardListener implements KeyListener{
 	public void keyPressed(KeyEvent e) {
 		System.out.println("Key Pressed: (KeyChar):" + e.getKeyChar() + " (KeyCode):" + e.getKeyCode() + " (Pressed):" + pressedKeys);
 		
-		// If usual character is entered, then just print it
-		if(pureKeys.contains((byte)e.getKeyChar())){
-			window.typeCharacter((byte) e.getKeyChar());
+		// If an ASCII character which is also in RACP is entered, type the associated RACP character.
+		System.out.println("Containskey: " + CharacterSet.ASCII_TO_RACP_MAPPING.size());
+		if(CharacterSet.ASCII_TO_RACP_MAPPING.containsKey(e.getKeyChar())){
+			window.typeCharacter(CharacterSet.ASCII_TO_RACP_MAPPING.get(e.getKeyChar()));
 		}else{
 			pressedKeys.add(e.getKeyCode());
 			if(pressedKeysAre(VK_CONTROL, VK_W)){
@@ -157,35 +56,35 @@ public class KeyboardListener implements KeyListener{
 			}else if(pressedKeysAre(VK_DELETE)){
 				window.delete();
 			}else if(pressedKeysAre(VK_CONTROL, VK_ALT, VK_Q)){
-				window.typeCharacter((byte)(10 + 1));
+				window.typeCharacter(CharacterSet.RACP_HEX_1);
 			}else if(pressedKeysAre(VK_CONTROL, VK_ALT, VK_W)){
-				window.typeCharacter((byte)(10 + 2));
+				window.typeCharacter(CharacterSet.RACP_HEX_2);
 			}else if(pressedKeysAre(VK_CONTROL, VK_ALT, VK_E)){
-				window.typeCharacter((byte)(10 + 3));
+				window.typeCharacter(CharacterSet.RACP_HEX_3);
 			}else if(pressedKeysAre(VK_CONTROL, VK_ALT, VK_R)){
-				window.typeCharacter((byte)(10 + 4));
+				window.typeCharacter(CharacterSet.RACP_HEX_4);
 			}else if(pressedKeysAre(VK_CONTROL, VK_ALT, VK_T)){
-				window.typeCharacter((byte)(10 + 5));
+				window.typeCharacter(CharacterSet.RACP_HEX_5);
 			}else if(pressedKeysAre(VK_CONTROL, VK_ALT, VK_A)){
-				window.typeCharacter((byte)(10 + 6));
+				window.typeCharacter(CharacterSet.RACP_HEX_6);
 			}else if(pressedKeysAre(VK_CONTROL, VK_ALT, VK_S)){
-				window.typeCharacter((byte)(10 + 7));
+				window.typeCharacter(CharacterSet.RACP_HEX_7);
 			}else if(pressedKeysAre(VK_CONTROL, VK_ALT, VK_D)){
-				window.typeCharacter((byte)(10 + 8));
+				window.typeCharacter(CharacterSet.RACP_HEX_8);
 			}else if(pressedKeysAre(VK_CONTROL, VK_ALT, VK_F)){
-				window.typeCharacter((byte)(10 + 9));
+				window.typeCharacter(CharacterSet.RACP_HEX_9);
 			}else if(pressedKeysAre(VK_CONTROL, VK_ALT, VK_G)){
-				window.typeCharacter((byte)(10 + 10));
+				window.typeCharacter(CharacterSet.RACP_HEX_10);
 			}else if(pressedKeysAre(VK_CONTROL, VK_ALT, VK_Z)){
-				window.typeCharacter((byte)(10 + 11));
+				window.typeCharacter(CharacterSet.RACP_HEX_11);
 			}else if(pressedKeysAre(VK_CONTROL, VK_ALT, VK_X)){
-				window.typeCharacter((byte)(10 + 12));
+				window.typeCharacter(CharacterSet.RACP_HEX_12);
 			}else if(pressedKeysAre(VK_CONTROL, VK_ALT, VK_C)){
-				window.typeCharacter((byte)(10 + 13));
+				window.typeCharacter(CharacterSet.RACP_HEX_13);
 			}else if(pressedKeysAre(VK_CONTROL, VK_ALT, VK_V)){
-				window.typeCharacter((byte)(10 + 14));
+				window.typeCharacter(CharacterSet.RACP_HEX_14);
 			}else if(pressedKeysAre(VK_CONTROL, VK_ALT, VK_B)){
-				window.typeCharacter((byte)(10 + 15));
+				window.typeCharacter(CharacterSet.RACP_HEX_15);
 			}else if(pressedKeysAre(VK_UP)){
 				window.arrowUp();
 			}else if(pressedKeysAre(VK_DOWN)){
