@@ -1,5 +1,5 @@
 # Revised ASCII Codes for Programming Specification
-**version** 0.0.2
+**version** 0.0.3
 
 ## Introduction
 
@@ -11,16 +11,17 @@ This encoding is based on the ASCII standard but seeks to modernise it to make b
 
 ## Features, compared to ASCII
 
-- Control character cleanup: Only contains four control characters; Null, Tab, New-Line, and Escape. Puts the old control characters slots to good use with new characters useful in the modern programming world.
-- Only one unambiguous New-Line character (ASCII 'Line Feed').
-- Dedicated Escape character for use within a string when programming and more.
-- Tab now has a specification, no more table formatting hell, no more dependence on the editor to tab correctly.
-- Three new bracket/paranthesis sets: 2 sets with dedicated use cases and 1 for generic use. No more using '<' and '>' for brackets.
-- New characters (I.e. not present in ASCII): Pilcrow, Reversed pilcrow, Currency Sign, Section Sign, Division Sign.
+- Control character cleanup: Only has the 3 whitespace characters: Space, Tab, and New-line.
+- Only one unambiguous New-Line character (New-line).
+- Dedicated Escape character for use within a string when programming or the like.
+- Tab now has a specification, no more formatting hell, no more dependence on the editor to tab correctly.
+- Three new bracket sets: Laths, Jambs, and Pilcrows. No more using '<' and '>' for brackets.
+- 31 new characters not found in ASCII.
 - Additional numeral systems:
-	- Booleans: Dedicated TRUE/FALSE number characters. No more using '0b' to distinguish from decimal.
+	- Booleans: Dedicated true/false number characters. No more using '0b' to distinguish from decimal.
 	- Hexadecimal: Dedicated hexadecimal number characters. No more using '0x' to distinguish from decimal.
-- All your favourite characters are right where you left them!<sup>1</sup> Any character in RACP also found in ASCII is exactly the same place.
+- All numeral characters can be bitmasked to extract the integer value.
+- Character reordering: Moved characters into logical groupings; Whitespaces, Brackets, Logicals, Arithmetic, Punctuations.
 
 ## Specification
 
@@ -36,54 +37,54 @@ This encoding is based on the ASCII standard but seeks to modernise it to make b
 
 Dec | Hex | Bin | Symbol | ASCII | Graphics | Description
 :---:|:---:|:----:|:---:|:---:|:---:|:------
-000 | 00 | 0000 0000 | NULL | \0 |  | Null character
-001 | 01 | 0000 0001 | 	<% | 	\\{	 | 	  | Script start
-002 | 02 | 0000 0010 | 	<: | 	\\[	 | 	  | Formatting start
-003 | 03 | 0000 0011 | 	:> | 	\\]	 | 	  | Formatting end or formatting until next newLine
-004 | 04 | 0000 0100 | 	%> | 	\\}	 | 	  | Script end or script until next newLine
-005 | 05 | 0000 0101 | 	FALSE |	\F	 |    | Boolean value false
-006 | 06 | 0000 0110 | 	TRUE | 	\T	 | 	  | Boolean value true
-007 | 07 | 0000 0111 | 	PIL | 	\p	 | ¶	  | Pilcrow
+000 | 00 | 0000 0000 | FALSE |	\F	 |    | Boolean value false
+001 | 01 | 0000 0001 | 	TRUE | 	\T	 | 	  | Boolean value true
+002 | 02 | 0000 0010 | 	SP | 	  	 |   | space
+003 | 03 | 0000 0011 | 	TAB | 	\t	 | 	  | Tab
+004 | 04 | 0000 0100 | 	NL | 	\n	 | U+2424 | New Line
+005 | 05 | 0000 0101 | 	ESC | 	\E	 |	| Escape the next character
+006 | 06 | 0000 0110 | 	/ | 	/	 | /	  | Slash, Forward Slash
+007 | 07 | 0000 0111 | 	\ | 	\\	 | \	  | Backslash
 008 | 08 | 0000 1000 | 	RPIL | 	\q	 | ⁋	  | Reversed Pilcrow
-009 | 09 | 0000 1001 | 	TAB | 	\t	 | 	  | Tab
-010 | 0A | 0000 1010 | 	NL | 	\n	 | U+2424 | New Line
-011 | 0B | 0000 1011 | 	HEX1 | 	\1	 | ١	  | Hexadecimal number one
-012 | 0C | 0000 1100 | 	HEX2 | 	\2	 | ٢	  | Hexadecimal number two
-013 | 0D | 0000 1101 | 	HEX3 | 	\3	 | ٣	  | Hexadecimal number three
-014 | 0E | 0000 1110 | 	HEX4 | 	\4	 | ٤	  | Hexadecimal number four
-015 | 0F | 0000 1111 | 	HEX5 |	\5	 | ٥	  | Hexadecimal number five
-016 | 10 | 0001 0000 | 	HEX6 | 	\6	 | ٦	  | Hexadecimal number six
-017 | 11 | 0001 0001 | 	HEX7 | 	\7	 | ٧	  | Hexadecimal number seven
-018 | 12 | 0001 0010 | 	HEX8 | 	\8	 | ٨	  | Hexadecimal number eight
-019 | 13 | 0001 0011 | 	HEX9 | 	\9	 | ٩	  | Hexadecimal number nine
-020 | 14 | 0001 0100 | 	HEX10 | 	\a	 | 	  | Hexadecimal number ten
-021 | 15 | 0001 0101 | 	HEX11 | 	\b	 | 	  | Hexadecimal number eleven
-022 | 16 | 0001 0110 | 	HEX12 | 	\c	 |    | Hexadecimal number twelve
-023 | 17 | 0001 0111 | 	HEX13 | 	\d	 | 	  | Hexadecimal number thirteen
-024 | 18 | 0001 1000 | 	HEX14 | 	\e	 | 	  | Hexadecimal number fourteen
-025 | 19 | 0001 1001 | 	HEX15 | 	\f	 | 	  | Hexadecimal number fifteen
-026 | 1A | 0001 1010 | 	CUR | 	\C	 | ¤	  | Currency sign
-027 | 1B | 0001 1011 | 	ESC | 	\E	 |	| Escape the next character; if the character has special meaning, dont interpret the meaning just print its symbol
-028 | 1C | 0001 1100 | 	<&#124; | 	\(	 | ⟨	  | Angle bracket left
-029 | 1D | 0001 1101 | 	&#124;> | 	\)	 | ⟩	  | Angle bracket right
-030 | 1E | 0001 1110 | 	LDAQ | 	\<	 | «	 | Left-pointing Double Angle Quote
-031 | 1F | 0001 1111 | 	RDAQ | 	\>	 | »	 | Rgiht-pointing Double Angle Quaote
-032 | 20 | 0010 0000 | 	SP | 	  	 |   | space
-033 | 21 | 0010 0001 | 	! | 	!	 | !	  | exclamation mark
-034 | 22 | 0010 0010 | 	" | 	"	 | "	  | Quotation mark
-035 | 23 | 0010 0011 | 	# | 	#	 | #	  | Number sign
-036 | 24 | 0010 0100 | 	$ | 	$	 | $	  | Dollar sign
-037 | 25 | 0010 0101 | 	% | 	%	 | %	  | Percent sign
-038 | 26 | 0010 0110 | 	& | 	&	 | &	  | Ampersand
-039 | 27 | 0010 0111 | 	' | 	'	 | '	  | Apostrophe
-040 | 28 | 0010 1000 | 	( | 	(	 | (	  | round brackets or parentheses
-041 | 29 | 0010 1001 | 	) | 	)	 | )	  | round brackets or parentheses
-042 | 2A | 0010 1010 | 	* | 	*	 | *	  | Asterisk
-043 | 2B | 0010 1011 | 	+ | 	+	 | +	  | Plus sign
-044 | 2C | 0010 1100 | 	, | 	,	 | ,	  | Comma
-045 | 2D | 0010 1101 | 	- | 	-	 | -	  | Hyphen
-046 | 2E | 0010 1110 | 	. | 	.	 | .	  | Full stop , dot
-047 | 2F | 0010 1111 | 	/ | 	/	 | /	  | Slash, Forward Slash
+009 | 09 | 0000 1001 | 	PIL | 	\p	 | ¶	  | Pilcrow
+010 | 0A | 0000 1010 | 	LDAQ | 	\\<	 | «	 | Left-pointing Double Angle Quote
+011 | 0B | 0000 1011 | 	RDAQ | 	\\>	 | »	 | Right-pointing Double Angle Quaote
+012 | 0C | 0000 1100 | 	LLATH | 	\\[	 | 	  | Left Lath
+013 | 0D | 0000 1101 | 	RLATH | 	\\]	 | 	  | Right Lath
+014 | 0E | 0000 1110 | 	LJAMB | 	\\{	 | 	  | Left Jamb
+015 | 0F | 0000 1111 | 	RJAMB | 	\\}	 | 	  | Right Jamb
+016 | 10 | 0001 0000 | 	( | 	(	 | (	  | round brackets or parentheses
+017 | 11 | 0001 0001 | 	) | 	)	 | )	  | round brackets or parentheses
+018 | 12 | 0001 0010 | 	[ | 	[	 | [	  | square brackets or box brackets
+019 | 13 | 0001 0011 | 	] | 	]	 | ]	  | square brackets or box brackets
+020 | 14 | 0001 0100 | 	{ | 	{	 | {	  | curly brackets or braces
+021 | 15 | 0001 0101 | 	} | 	}	 | }	  | curly brackets or braces
+022 | 16 | 0001 0110 | 	LABRA | 	\\(	 | ⟨	  | Angle bracket left
+023 | 17 | 0001 0111 | 	RABRA | 	\\)	 | ⟩	  | Angle bracket right
+024 | 18 | 0001 1000 | 	< | 	<	 | <	  | Less-than sign; left guillemet 
+025 | 19 | 0001 1001 | 	> | 	>	 | >	  | Greater-than sign ; Inequality; right guillemet 
+026 | 1A | 0001 1010 | 	= | 	=	 | =	  | Equals sign
+027 | 1B | 0001 1011 | 	NOT	| \\!	| ¬	| Not Sign
+028 | 1C | 0001 1100 | 	& | 	&	 | &	  | Ampersand
+029 | 1D | 0001 1101 | &#124; | 	&#124;	 | &#124;	  | vertical-bar, vbar, vertical line or vertical slash
+030 | 1E | 0001 1110 | 	^ | 	^	 | ^	  | Caret or circumflex accent
+031 | 1F | 0001 1111 | 	$ | 	$	 | $	  | Dollar sign
+032 | 20 | 0010 0000 | 	HEX0 | 	\0	 | 	  | Hexadecimal number zero
+033 | 21 | 0010 0001 | 	HEX1 | 	\1	 | ١	  | Hexadecimal number one
+034 | 22 | 0010 0010 | 	HEX2 | 	\2	 | ٢	  | Hexadecimal number two
+035 | 23 | 0010 0011 | 	HEX3 | 	\3	 | ٣	  | Hexadecimal number three
+036 | 24 | 0010 0100 | 	HEX4 | 	\4	 | ٤	  | Hexadecimal number four
+037 | 25 | 0010 0101 | 	HEX5 |	\5	 | ٥	  | Hexadecimal number five
+038 | 26 | 0010 0110 | 	HEX6 | 	\6	 | ٦	  | Hexadecimal number six
+039 | 27 | 0010 0111 | 	HEX7 | 	\7	 | ٧	  | Hexadecimal number seven
+040 | 28 | 0010 1000 | 	HEX8 | 	\8	 | ٨	  | Hexadecimal number eight
+041 | 29 | 0010 1001 | 	HEX9 | 	\9	 | ٩	  | Hexadecimal number nine
+042 | 2A | 0010 1010 | 	HEX10 | 	\a	 | 	  | Hexadecimal number ten
+043 | 2B | 0010 1011 | 	HEX11 | 	\b	 | 	  | Hexadecimal number eleven
+044 | 2C | 0010 1100 | 	HEX12 | 	\c	 |    | Hexadecimal number twelve
+045 | 2D | 0010 1101 | 	HEX13 | 	\d	 | 	  | Hexadecimal number thirteen
+046 | 2E | 0010 1110 | 	HEX14 | 	\e	 | 	  | Hexadecimal number fourteen
+047 | 2F | 0010 1111 | 	HEX15 | 	\f	 | 	  | Hexadecimal number fifteen
 048 | 30 | 0011 0000 | 	0 | 	0	 | 0	  | Decimal number zero
 049 | 31 | 0011 0001 | 	1 | 	1	 | 1	  | Decimal number one
 050 | 32 | 0011 0010 | 	2 | 	2	 | 2	  | Decimal number two
@@ -96,9 +97,9 @@ Dec | Hex | Bin | Symbol | ASCII | Graphics | Description
 057 | 39 | 0011 1001 | 	9 | 	9	 | 9	  | Decimal number nine
 058 | 3A | 0011 1010 | 	: | 	:	 | :	  | Colon
 059 | 3B | 0011 1011 | 	; | 	;	 | ;	  | Semicolon
-060 | 3C | 0011 1100 | 	< | 	<	 | <	  | Less-than sign; left guillemet 
-061 | 3D | 0011 1101 | 	= | 	=	 | =	  | Equals sign
-062 | 3E | 0011 1110 | 	> | 	>	 | >	  | Greater-than sign ; Inequality; right guillemet 
+060 | 3C | 0011 1100 | 	. | 	.	 | .	  | Full stop , dot
+061 | 3D | 0011 1101 | 	, | 	,	 | ,	  | Comma
+062 | 3E | 0011 1110 | 	! | 	!	 | !	  | exclamation mark
 063 | 3F | 0011 1111 | 	? | 	?	 | ?	  | Question mark
 064 | 40 | 0100 0000 | 	@ | 	@	 | @	  | At sign
 065 | 41 | 0100 0001 | 	A | 	A	 | A	  | Capital A 
@@ -127,11 +128,11 @@ Dec | Hex | Bin | Symbol | ASCII | Graphics | Description
 088 | 58 | 0101 1000 | 	X | 	X	 | X	  | Capital X 
 089 | 59 | 0101 1001 | 	Y | 	Y	 | Y	  | Capital Y 
 090 | 5A | 0101 1010 | 	Z | 	Z	 | Z	  | Capital Z 
-091 | 5B | 0101 1011 | 	[ | 	[	 | [	  | square brackets or box brackets
-092 | 5C | 0101 1100 | 	\ | 	\\	 | \	  | Backslash
-093 | 5D | 0101 1101 | 	] | 	]	 | ]	  | square brackets or box brackets
-094 | 5E | 0101 1110 | 	^ | 	^	 | ^	  | Caret or circumflex accent
-095 | 5F | 0101 1111 | 	_ | 	_	 | _	  | underscore , understrike , underbar or low line
+091 | 5B | 0101 1011 | 	+ | 	+	 | +	  | Plus sign
+092 | 5C | 0101 1100 | 	- | 	-	 | -	  | Hyphen
+093 | 5D | 0101 1101 | 	* | 	*	 | *	  | Asterisk
+094 | 5E | 0101 1110 | 	DIV | 	\\~	 | ÷	  | Division Sign, Obelus
+095 | 5F | 0101 1111 | 	% | 	%	 | %	  | Percent sign
 096 | 60 | 0110 0000 | 	SEC | 	\s	 | §	  | Section Sign
 097 | 61 | 0110 0001 | 	a | 	a	 | a	  | Lowercase  a 
 098 | 62 | 0110 0010 | 	b | 	b	 | b	  | Lowercase  b 
@@ -159,11 +160,11 @@ Dec | Hex | Bin | Symbol | ASCII | Graphics | Description
 120 | 78 | 0111 1000 | 	x | 	x	 | x	  | Lowercase  x 
 121 | 79 | 0111 1001 | 	y | 	y	 | y	  | Lowercase  y 
 122 | 7A | 0111 1010 | 	z | 	z	 | z	  | Lowercase  z 
-123 | 7B | 0111 1011 | 	{ | 	{	 | {	  | curly brackets or braces
-124 | 7C | 0111 1100 | 	&#124; | 	&#124;	 | &#124;	  | vertical-bar, vbar, vertical line or vertical slash
-125 | 7D | 0111 1101 | 	} | 	}	 | }	  | curly brackets or braces
+123 | 7B | 0111 1011 | 	" | 	"	 | "	  | Quotation mark
+124 | 7C | 0111 1100 | 	' | 	'	 | '	  | Apostrophe
+125 | 7D | 0111 1101 | 	_ | 	_	 | _	  | underscore , understrike , underbar or low line
 126 | 7E | 0111 1110 | 	~ | 	~	 | ~	  | Tilde ; swing dash
-127 | 7F | 0111 1111 |	DIV | 	\\~	 | ÷	  | Division Sign
+127 | 7F | 0111 1111 |	# | 	#	 | #	  | Number sign
 
 ### Tabbing
 
@@ -173,26 +174,24 @@ By default a tab is defined as being displayed as a blank and takes up a set num
 If a line of characters contains a set of tabs, and the next line in the string contains the exact same number of tabs, the tabs must be aligned in such a way that each tab in the second line is directly below the corresponding tab in the previous line. This requirement is stronger than the requirement of all tabs needing to take up the same number of CDSs. Therefore, if a tab needs to take up more slots to be alligned with its predecessor then it must do so. This realignment cannot reduce the number of CDSs a tab takes up below what the tab would have taken up without realignment.
 These allignment requirements are chained. This means if any number of consequtive lines have the exact same number of tabs, all the lines must align their tabs to match each other.
 
-### Script
+### Character Groups
 
-An implicit instruction language that must be interpreted and run at this point in the reading of the text.
+A character group is a subsequence of the characters in the specification. The specification defines the following character groups:
+Group name | First character | Last Character
+:---|:---:|:----
+Booleans | FALSE | True
+Whitespaces | SP | NL
+Symetricals | / | >
+Brackets | LDAQ  |  RABRA
+Logicals | < | &
+Numerals | HEX0  |  9
+Hexadecimals | HEX0 | HEX15
+Decimals | 0 | 9
+Punctuations | : | ?
+Capitals | A | Z
+Arithmetics | + | %
+Lowercases | a | z
 
-A script segment is started by the \\{ (ASCII) character and is bounded by the \\} character. Any character in between these two is part of that script segment. The language of the script is undefined by this specification and is implicitly known by any reader of the character String.
-
-The script segment is executed by the entity reading the character String. The segment specifies intructions for reader to do at that given moment of the character stream reading, be it state change or generation of additional characters.
-
-### Formatting
-
-An implicit instruction language that must be interpreted and run at this point in the reading of the text.
-
-A formatting segment is started by the \\[ (ASCII) character and is bounded by the \\] character.Any characterin between these two is part of that script segment. The language of the script is undefined by this specification and is implicitly known by any reader of the character stream.
-
-The formatting segment tells the current reader of the character stream, how to continue reading the character stream.
-
-
-<sup>1</sup>: Removed the Grave Accent (`) character. It is too similar to the Apostrophe (') and, honestly, it is no ones favourite character<sup>2</sup>. It is better suited for the multi-character encoding where proper frech can be specified. It has been replaced with the Section Sign (U+0060,&#96).
-
-<sup>2</sup>: I hate its inclusion in ASCII to such a degree that I wont even search for evidence coroborating this statement.
 
 
 
