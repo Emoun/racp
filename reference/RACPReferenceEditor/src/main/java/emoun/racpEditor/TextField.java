@@ -139,6 +139,7 @@ public class TextField  extends LinkedDisplay<TextField,Byte>{
 			//Save displaying before next is removed.
 			Byte old = displaying();
 			getNext().pullDisplayAndClearLast();
+			makeLast();
 			return old;
 		}else{
 			return super.pullDisplayAndClearLast();

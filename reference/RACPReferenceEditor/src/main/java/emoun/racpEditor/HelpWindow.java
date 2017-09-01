@@ -45,6 +45,10 @@ public class HelpWindow extends JFrame{
 					"<td>Show/hide whitespace characters</th>" +
 				"</tr>"+
 				"<tr>"+
+					"<td>ctrl+alt+1</th>" +
+					"<td>Type hexadecimal 0</th>" +
+				"</tr>"+
+				"<tr>"+
 					"<td>ctrl+alt+q</th>" +
 					"<td>Type hexadecimal 1</th>" +
 				"</tr>"+	
@@ -103,6 +107,14 @@ public class HelpWindow extends JFrame{
 				"<tr>"+
 					"<td>ctrl+alt+b</th>" +
 					"<td>Type hexadecimal 15</th>" +
+				"</tr>"+
+				"<tr>"+
+					"<td>½</th>" +
+					"<td>Type the TRUE character</th>" +
+				"</tr>"+
+				"<tr>"+
+					"<td>shift+½</th>" +
+					"<td>Type the FALSE character</th>" +
 				"</tr>"+
 			"</table>" +		
 			"</html>"

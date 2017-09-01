@@ -42,7 +42,7 @@ public class CharacterSet {
 	public static final byte RACP_HEX_12 = 44;
 	public static final byte RACP_HEX_13 = 45;
 	public static final byte RACP_HEX_14 = 46;
-	public static final byte RACP_HEX_15 = 57;
+	public static final byte RACP_HEX_15 = 47;
 	public static final byte RACP_PERIOD = 60;
 	public static final byte RACP_COMMA = 61;
 	public static final byte RACP_EXCLAMATION	= 62;
