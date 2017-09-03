@@ -39,7 +39,7 @@ public class TextArea extends JPanel{
 			TextLine line = (TextLine) getComponent(i);
 			
 			line.addDisplaying(addTo);
-			addTo.add((byte) 10); 
+			addTo.add(CharacterSet.RACP_NEWLINE); 
 		}
 		addTo.remove(addTo.size()-1);
 	}
@@ -55,7 +55,7 @@ public class TextArea extends JPanel{
 		
 		for(int i = 0; i<getComponentCount()-1; i++){
 			result.addAll(getLine(i).displaying());
-			result.add((byte)10);
+			result.add(CharacterSet.RACP_NEWLINE);
 		}
 		
 		result.addAll(getLine(getComponentCount()-1).displaying());

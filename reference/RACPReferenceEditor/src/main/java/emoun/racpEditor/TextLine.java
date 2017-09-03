@@ -131,7 +131,7 @@ public class TextLine extends LinkedDisplay<TextLine,List<Byte>>{
 		while(text.size() > 0){
 			byte next = text.remove(0);
 			//If newline
-			if(next == 10){
+			if(next == CharacterSet.RACP_NEWLINE){
 				if(last()){
 					TextLine newLine = new TextLine(rowNr+1);
 					DoublyLinkedPanel.link(this, newLine);
