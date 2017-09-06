@@ -12,6 +12,16 @@ public class TextField  extends LinkedDisplay<TextField,Byte>{
 
 //Fields	
 	public static final byte DEFAULT_DISPLAY = CharacterSet.RACP_SPACE;
+	/**
+	 * The minimum size of the body of a tabstop. Must be 0 or higher.
+	 * The body of a tabstop contains all non-tab characters between two tabsstops.
+	 */
+	public static final int DEFAULT_TABSTOP_MIN_BODY = 2;
+	/**
+	 * The minimum size of the padding after the body of a tabstop. Must be 0 or higher.
+	 * The padding is the empty space after the last character that is between two tabstops.
+	 */
+	public static final int DEFAULT_TABSTOP_MIN_PADDING = 2;
 	
 	private int row;
 	
@@ -234,7 +244,31 @@ public class TextField  extends LinkedDisplay<TextField,Byte>{
 	}
 	
 	public void resetAlignment(){
-		setAlignment(displayingTab()? 4:1);
+		int alignment;
+		if(displayingTab()) {
+			if(first()) {
+				alignment = DEFAULT_TABSTOP_MIN_BODY;
+			}else {
+				TextField f = this;
+				int i  = 0;
+				for(; i<DEFAULT_TABSTOP_MIN_BODY; i++) {
+					f = f.getPrevious();
+					if(f.displayingTab()) {
+						break;
+					}
+					if(f.first()){
+						i++;
+						break;
+					}
+				}
+				alignment = DEFAULT_TABSTOP_MIN_BODY - i;
+			}
+			alignment += DEFAULT_TABSTOP_MIN_PADDING;
+		}else {
+			alignment = 1;
+		}
+		
+		setAlignment(alignment);
 	}
 	
 	@Override
