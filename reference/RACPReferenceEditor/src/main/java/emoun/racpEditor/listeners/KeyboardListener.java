@@ -11,7 +11,10 @@ import emoun.racpEditor.CharacterSet;
 import emoun.racpEditor.Window;
 import static java.awt.event.KeyEvent.*;
 
-public class KeyboardListener implements KeyListener{
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+
+public class KeyboardListener implements KeyListener, FocusListener{
 
 //Fields
 	private Window window;
@@ -49,7 +52,8 @@ public class KeyboardListener implements KeyListener{
 					return;
 				}
 			}
-			System.out.println("No combination.");
+			System.out.println("No combination. Has focus: " +  window.hasFocus());
+			//if(window.h)
 		}
 	}
 
@@ -59,7 +63,20 @@ public class KeyboardListener implements KeyListener{
 		pressedKeys.remove(e.getKeyCode());
 		
 	}
+	
+	@Override
+	public void focusGained(FocusEvent e) {
+		// TODO Auto-generated method stub
+		System.out.println("Focus gained.");
+	}
 
+	@Override
+	public void focusLost(FocusEvent e) {
+		//Whenever focus is lost, all pressed keys should be released
+		System.out.println("Focus lost.");
+		pressedKeys.clear();
+	}
+	
 //Private methods
 	
 	private boolean pressedKeysAre(int... keys){
@@ -112,8 +129,7 @@ public class KeyboardListener implements KeyListener{
 		bind(keys(VK_LEFT),() -> {window.arrowLeft(); });
 		bind(keys(0),() -> { window.typeCharacter(CharacterSet.RACP_TRUE); });
 		bind(keys(VK_SHIFT, 0),() -> { window.typeCharacter(CharacterSet.RACP_FALSE); });
-	}
-	
+	}	
 }
 
 @FunctionalInterface
