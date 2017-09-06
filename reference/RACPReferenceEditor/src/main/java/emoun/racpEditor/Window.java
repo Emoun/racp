@@ -30,7 +30,9 @@ public class Window extends JFrame{
 	
 	public Window(){
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		addKeyListener(new KeyboardListener(this));
+		KeyboardListener keyboardListener = new KeyboardListener(this);
+		addKeyListener(keyboardListener);
+		addFocusListener(keyboardListener);
 		setFocusTraversalKeysEnabled(false); //Enables tab clicks to be sent o the keyboard listener
 		
 		setPreferredSize(new Dimension(900,500));
