@@ -116,6 +116,63 @@ public class HelpWindow extends JFrame{
 					"<td>shift+½</th>" +
 					"<td>Type the FALSE character</th>" +
 				"</tr>"+
+				"<tr>"+
+					"<td>ctrl+alt+½</th>" +
+					"<td>Type the Section (§) character</th>" +
+				"</tr>"+
+				"<tr>"+
+					"<td>shift+esc</th>" +
+					"<td>Type the Escape character</th>" +
+				"</tr>"+
+				"<tr>"+
+					"<td>ctrl+alt+'-'</th>" +
+					"<td>Type the Division (÷) character</th>" +
+				"</tr>"+
+				"<tr>"+
+					"<td>ctrl+alt+'+'</th>" +
+					"<td>Type the Not (¬) character</th>" +
+				"</tr>"+
+				"<tr>"+
+					"<td>ctrl+alt+','</th>" +
+					"<td>Type the Left Angle Bracket character</th>" +
+				"</tr>"+
+				"<tr>"+
+					"<td>ctrl+alt+'.'</th>" +
+					"<td>Type the Right Angle Bracket character</th>" +
+				"</tr>"+
+				"<tr>"+
+					"<td>ctrl+alt+H</th>" +
+					"<td>Type the Left Jamb character</th>" +
+				"</tr>"+
+				"<tr>"+
+					"<td>ctrl+alt+J</th>" +
+					"<td>Type the Right Jamb character</th>" +
+				"</tr>"+
+				"<tr>"+
+					"<td>ctrl+alt+K</th>" +
+					"<td>Type the Left Lath character</th>" +
+				"</tr>"+
+				"<tr>"+
+					"<td>ctrl+alt+L</th>" +
+					"<td>Type the Right Lath character</th>" +
+				"</tr>"+
+					"<tr>"+
+					"<td>ctrl+alt+O</th>" +
+					"<td>Type the Pilcrow (¶) character</th>" +
+				"</tr>"+
+				"<tr>"+
+					"<td>ctrl+alt+P</th>" +
+					"<td>Type the Reversed Pilcrow character</th>" +
+				"</tr>"+
+					"</tr>"+
+					"<tr>"+
+					"<td>ctrl+alt+U</th>" +
+					"<td>Type the Left Double Angle Quote («)character</th>" +
+				"</tr>"+
+				"<tr>"+
+					"<td>ctrl+alt+I</th>" +
+					"<td>Type the Right Double Angle Quote (») character</th>" +
+				"</tr>"+
 			"</table>" +		
 			"</html>"
 		;
@@ -124,7 +181,7 @@ public class HelpWindow extends JFrame{
 	
 	public HelpWindow(){
 		JTextPane text = new JTextPane();
-		setPreferredSize(new Dimension(600,300));
+		setPreferredSize(new Dimension(400,900));
 		
 		text.setEditable(false);
 		text.setContentType("text/html");
