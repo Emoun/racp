@@ -41,12 +41,12 @@ public class Window extends JFrame{
 		
 		
 		JPanel resizer = new JPanel();
-		resizer.setBackground(Color.GREEN);
+		resizer.setBackground(Color.WHITE);
 		resizer.setLayout(new FlowLayout(FlowLayout.LEFT));
 		resizer.add(textArea);
 		
 		JScrollPane scroller = new JScrollPane(resizer);
-		scroller.setBackground(Color.PINK);
+		scroller.setBackground(Color.WHITE);
 		scroller.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scroller.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		add(scroller);

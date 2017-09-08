@@ -36,7 +36,7 @@ public class TextField  extends LinkedDisplay<TextField,Byte>{
 //Constructors
 	public TextField(int row){
 		this.row = row;
-		setBackground(Color.gray);
+		setBackground(Color.WHITE);
 		
 		display = DEFAULT_DISPLAY;
 		resetAlignment();

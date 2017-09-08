@@ -127,8 +127,24 @@ public class KeyboardListener implements KeyListener, FocusListener{
 		bind(keys(VK_DOWN),() -> {window.arrowDown(); });
 		bind(keys(VK_RIGHT),() -> {window.arrowRight(); });
 		bind(keys(VK_LEFT),() -> {window.arrowLeft(); });
-		bind(keys(0),() -> { window.typeCharacter(CharacterSet.RACP_TRUE); });
+		bind(keys(0/*The ½ key left of the 1 key*/),() -> { window.typeCharacter(CharacterSet.RACP_TRUE); });
 		bind(keys(VK_SHIFT, 0),() -> { window.typeCharacter(CharacterSet.RACP_FALSE); });
+		bind(keys(VK_SHIFT, VK_ESCAPE),() -> { window.typeCharacter(CharacterSet.RACP_ESCAPE); });
+		bind(keys(VK_CONTROL, VK_ALT, VK_MINUS),() -> { window.typeCharacter(CharacterSet.RACP_DIVISION); });
+		bind(keys(VK_CONTROL, VK_ALT, 0/*The ½ key left of the 1 key*/),() -> { window.typeCharacter(CharacterSet.RACP_SECTION); });
+		bind(keys(VK_CONTROL, VK_ALT, VK_PLUS),() -> { window.typeCharacter(CharacterSet.RACP_NOT); });
+		bind(keys(VK_CONTROL, VK_ALT, VK_COMMA),() -> { window.typeCharacter(CharacterSet.RACP_LA_BRACKET); });
+		bind(keys(VK_CONTROL, VK_ALT, VK_PERIOD),() -> { window.typeCharacter(CharacterSet.RACP_RA_BRACKET); });
+		bind(keys(VK_CONTROL, VK_ALT, VK_H),() -> { window.typeCharacter(CharacterSet.RACP_LJAMB); });
+		bind(keys(VK_CONTROL, VK_ALT, VK_J),() -> { window.typeCharacter(CharacterSet.RACP_RJAMB); });
+		bind(keys(VK_CONTROL, VK_ALT, VK_K),() -> { window.typeCharacter(CharacterSet.RACP_LLATH); });
+		bind(keys(VK_CONTROL, VK_ALT, VK_L),() -> { window.typeCharacter(CharacterSet.RACP_RLATH); });
+		bind(keys(VK_CONTROL, VK_ALT, VK_P),() -> { window.typeCharacter(CharacterSet.RACP_RPILCROW); });
+		bind(keys(VK_CONTROL, VK_ALT, VK_O),() -> { window.typeCharacter(CharacterSet.RACP_PILCROW); });
+		bind(keys(VK_CONTROL, VK_ALT, VK_U),() -> { window.typeCharacter(CharacterSet.RACP_LDAQ); });
+		bind(keys(VK_CONTROL, VK_ALT, VK_I),() -> { window.typeCharacter(CharacterSet.RACP_RDAQ); });
+		
+		
 	}	
 }
 

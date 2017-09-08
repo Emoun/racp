@@ -13,7 +13,7 @@ public class TextArea extends JPanel{
 	
 //Constructs
 	public TextArea(){
-		setBackground(Color.BLUE);
+		setBackground(Color.WHITE);
 		BoxLayout layout = new BoxLayout(this,BoxLayout.Y_AXIS);
 		setLayout(layout);
 		
