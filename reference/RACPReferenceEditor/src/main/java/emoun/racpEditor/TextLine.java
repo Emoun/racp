@@ -17,7 +17,7 @@ public class TextLine extends LinkedDisplay<TextLine,List<Byte>>{
 	public TextLine(int rowNr){
 		this.rowNr = rowNr;
 		setLayout(new FlowLayout(FlowLayout.LEFT,0,0));
-		setBackground(Color.RED);
+		setBackground(Color.WHITE);
 		
 		add(TextField.newTextField(rowNr));
 		
