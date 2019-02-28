@@ -40,49 +40,33 @@ public class TextLine extends LinkedDisplay<TextLine,List<Byte>>{
 	public void unifyGroupNext(List<TextField> prevTabs){
 		List<TextField> thisTabs = tabs();
 		
-		// If in group with the previous line
-		// Align with it.
-		if(prevTabs.size() == thisTabs.size()){
-			for(int i = 0; i<prevTabs.size(); i++){
-				TextField thisF = thisTabs.get(i);
-				TextField prevF = prevTabs.get(i);
-				thisF.alignWith(prevF);
-			}
-		}
+		// Align all shared tabs
+		alignSharedTabs(prevTabs, thisTabs);
+		
 		
 		// Align with all the next lines
 		if(!last()){
 			getNext().unifyGroupNext(thisTabs);	
 			// Realign with the previous, in case any changes were made
-			if(prevTabs.size() == thisTabs.size()){
-				for(int i = 0; i<prevTabs.size(); i++){
-					TextField thisF = thisTabs.get(i);
-					TextField prevF = prevTabs.get(i);
-					thisF.alignWith(prevF);
-				}
-			}
+			alignSharedTabs(prevTabs, thisTabs);
 		}
 		
 		revalidate();
 		repaint();
 	}
+
 	
 	public void unifyGroupPrev(List<TextField> nextTabs){
 		List<TextField> thisTabs = tabs();
 				
-		if(nextTabs.size() == thisTabs.size()){
-			for(int i = 0; i<nextTabs.size(); i++){
-				thisTabs.get(i).alignWith(nextTabs.get(i));
-			}
-		}
+		// Align all shared tabs
+		alignSharedTabs(nextTabs, thisTabs);
 		if(!first()){
 			getPrevious().unifyGroupPrev(thisTabs);		
 		}
-		if(nextTabs.size() == thisTabs.size()){
-			for(int i = 0; i<nextTabs.size(); i++){
-				thisTabs.get(i).alignWith(nextTabs.get(i));
-			}
-		}
+		alignSharedTabs(nextTabs, thisTabs);
+		
+		
 		revalidate();
 		repaint();
 	}
@@ -186,5 +170,13 @@ public class TextLine extends LinkedDisplay<TextLine,List<Byte>>{
 	}
 	
 //Private methods
-	
+
+	private void alignSharedTabs(List<TextField> prevTabs, List<TextField> thisTabs) {
+		int tabCount = Math.min(thisTabs.size(), prevTabs.size());
+		for(int i = 0; i<tabCount; i++){
+			TextField thisF = thisTabs.get(i);
+			TextField prevF = prevTabs.get(i);
+			thisF.alignWith(prevF);
+		}
+	}
 }
