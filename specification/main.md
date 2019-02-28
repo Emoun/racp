@@ -177,6 +177,7 @@ These allignment requirements are chained. This means if any number of consequti
 ### Character Groups
 
 A character group is a subsequence of the characters in the specification. The specification defines the following character groups:
+
 Group name | First character | Last Character
 :---|:---:|:----
 Booleans | FALSE | True
