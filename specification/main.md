@@ -7,21 +7,22 @@ This document describes the complete specification for the **R**evised **A**SCII
 
 This is an 8-bit encoding with 128 valid characters ranging the values of 0 - 127. The most significant bit is reserved for future specification of a multi-byte encoding, compatible with RACP.
 
-This encoding is based on the ASCII standard but seeks to modernise it to make better use of the limited encoding space. The encoding __does not__ seek to be compatible with either ASCII nor Unicode but will take inspiration from them where there is no reason not to.
+This encoding is based on the ASCII standard but seeks to modernise it to make better use of the limited encoding space. The encoding __does not__ seek to be compatible with either ASCII nor Unicode but will take inspiration from them.
 
 ## Features, compared to ASCII
 
 - Control character cleanup: Only has the 3 whitespace characters: Space, Tab, and New-line.
-- Only one unambiguous New-Line character (New-line).
+- Only a single, unambiguous New-Line character (New-line).
 - Dedicated Escape character for use within a string when programming or the like.
 - Tab now has a specification, no more formatting hell, no more dependence on the editor to tab correctly.
-- Three new bracket sets: Laths, Jambs, and Pilcrows. No more using '<' and '>' for brackets.
+- Four new bracket sets: Laths, Jambs, and Angle Brackets. No more using '<' and '>' for brackets.
 - 31 new characters not found in ASCII.
 - Additional numeral systems:
 	- Booleans: Dedicated true/false number characters. No more using '0b' to distinguish from decimal.
 	- Hexadecimal: Dedicated hexadecimal number characters. No more using '0x' to distinguish from decimal.
-- All numeral characters can be bitmasked to extract the integer value.
+- Both decimal and hexadecimals can be bitmasked to extract the integer value.
 - Character reordering: Moved characters into logical groupings; Whitespaces, Brackets, Logicals, Arithmetic, Punctuations.
+- Arithmetic pairings: Character pairs can be easily found using the formula `P = (Q + 64) mod 128`, where `P` and `Q` are a pair. E.g. `A`/`a`, `a`/`A`, `{`/`}`.
 
 ## Specification
 
@@ -178,24 +179,25 @@ These allignment requirements are chained. This means if any number of consequti
 
 A character group is a subsequence of the characters in the specification. The specification defines the following character groups:
 
-Group name | First character | Last Character
-:---|:---:|:----
-Booleans | FALSE | True
-Whitespaces | SP | NL
-Symetricals | / | >
-Brackets | LDAQ  |  RABRA
-Logicals | < | &
-Numerals | HEX0  |  9
-Hexadecimals | HEX0 | HEX15
-Decimals | 0 | 9
-Punctuations | : | ?
-Capitals | A | Z
-Arithmetics | + | %
-Lowercases | a | z
-
-
-
-
+Group name | `C` in group
+:---|:---
+Booleans | C = FALSE &#124; C = TRUE
+Whitespaces | SP <= C & C <= NL
+Logicals | C = '<' &#124; ('>' <= C & C <= '^')
+Hexadecimals | HEX0 <= C & C <= HEX15
+Decimals | 0 <= C & C <= 9
+Punctuations | ':' <= C & C <= '*'
+Uppercases | 'A' <= C & C <= 'Z'
+Arithmetics | '\*' <= C & C <= '-'
+Lowercases | 'a' <= C & C <= 'z'
+Left brackets | LLATH <= C & C <= LABRA
+Right brackets | RLATH <= C & C <= RABRA
+Left symetricals | '/' <= C & C <= '<'
+Right symetricals | '\\' <= C & C <= '>'
+Numerals | HEX0 <= C & C <= 9
+Letters | Uppercases &#124; Lowercases
+brackets | Left brackets &#124; Right brackets
+symetricals | Left symetricals &#124; Right symetricals
 
 
 
