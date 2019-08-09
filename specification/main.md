@@ -1,5 +1,5 @@
 # Revised ASCII Codes for Programming Specification
-**version** 0.0.3
+**version** 0.0.4
 
 ## Introduction
 
