@@ -37,7 +37,7 @@ This encoding is based on the ASCII standard but seeks to modernise it to make b
 - **Description**: Short description. See next section for more information on specific topics.
 
 Dec | Hex | Bin | Symbol | ASCII | Graphics | Description
-:---:|:---:|:----:|:---:|:---:|:---:|:------
+:---:|:---:|:---:|:---:|:---:|:---:|:---
 000 | 00 | 0000 0000 | FALSE |	\F	 |    | Boolean value false
 001 | 01 | 0000 0001 | 	A | 	A	 | A	  | Capital A 
 002 | 02 | 0000 0010 | 	B | 	B	 | B	  | Capital B 
@@ -179,26 +179,26 @@ These allignment requirements are chained. This means if any number of consequti
 
 A character group is a subsequence of the characters in the specification. The specification defines the following character groups:
 
-Group name | `C` in group
-:---|:---
-Booleans | C = FALSE &#124; C = TRUE
-Whitespaces | SP <= C & C <= NL
-Logicals | C = '<' &#124; ('>' <= C & C <= '^')
-Hexadecimals | HEX0 <= C & C <= HEX15
-Decimals | 0 <= C & C <= 9
-Punctuations | ':' <= C & C <= '*'
-Uppercases | 'A' <= C & C <= 'Z'
-Arithmetics | '\*' <= C & C <= '-'
-Lowercases | 'a' <= C & C <= 'z'
-Left brackets | LLATH <= C & C <= LABRA
-Right brackets | RLATH <= C & C <= RABRA
-Left symetricals | '/' <= C & C <= '<'
-Right symetricals | '\\' <= C & C <= '>'
-Numerals | HEX0 <= C & C <= 9
-Letters | Uppercases &#124; Lowercases
-brackets | Left brackets &#124; Right brackets
-symetricals | Left symetricals &#124; Right symetricals
-
+Group name | `C` in group | Description	
+:---|:---|:---
+Booleans | C = FALSE &#124; C = TRUE | The two boolean characters (True/False)
+Whitespaces | SP <= C & C <= NL | The three characters for controlling formatting
+Logicals | C = '<' &#124; ('>' <= C & C <= '^') | The characters usually used as logical operators
+Hexadecimals | HEX0 <= C & C <= HEX15 | The hexadecimal numbers
+Decimals | 0 <= C & C <= 9 | The decimal numbers
+Punctuations | ':' <= C & C <= ''' | Punctuation characters
+Uppercases | 'A' <= C & C <= 'Z' | The upper-case letters
+Arithmetics | '\*' <= C & C <= '-' | The characters usually used as arithmetic operators
+Lowercases | 'a' <= C & C <= 'z' | The lower-case letters
+Left brackets | LLATH <= C & C <= LABRA | The left-associated bracket characters
+Right brackets | RLATH <= C & C <= RABRA | The right-assciated bracket characters
+Left symetricals | '/' <= C & C <= '<' | The left-associated characters within a symetrical pair
+Right symetricals | '\\' <= C & C <= '>' | The right-associated characters within a symetrical pair
+Numerals | HEX0 <= C & C <= 9 | All hexadecimal and decimal numbers
+Letters | Uppercases &#124; Lowercases | All letters
+Brackets | Left brackets &#124; Right brackets | All bracket characters
+Symetricals | Left symetricals &#124; Right symetricals | All characters within a symetrical pair
+Paired | (C mod 64) <= '<' &#124; '9' < (C mod 64) | All characters that are part of a pair
 
 
 
