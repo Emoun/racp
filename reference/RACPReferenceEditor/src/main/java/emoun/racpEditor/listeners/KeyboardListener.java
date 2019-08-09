@@ -22,39 +22,41 @@ public class KeyboardListener implements KeyListener, FocusListener{
 	private HashSet<Integer> pressedKeys = new HashSet<Integer>();
 	
 	private HashMap<int[], Procedure> keybinds = new HashMap();
+	private boolean combinationTriggered;
 	
 //Constructors
 	
 	public KeyboardListener(Window window) {
 		this.window = window;
 		setKeybinds();
+		this.combinationTriggered = false;
 	}
 	
 //Overriding methods
 		
 	@Override
 	public void keyTyped(KeyEvent e) {
-//		System.out.println("Typed: (KeyChar):" + e.getKeyChar() + " (KeyCode):" + e.getKeyCode());
+		System.out.println("Key Typed: (KeyChar):" + e.getKeyChar() + " (KeyCode):" + e.getKeyCode() 
+			+ " (Pressed):" + pressedKeys + " (Combination):" + this.combinationTriggered);
+		if(!combinationTriggered && CharacterSet.ASCII_TO_RACP_MAPPING.containsKey(e.getKeyChar())){
+			window.typeCharacter(CharacterSet.ASCII_TO_RACP_MAPPING.get(e.getKeyChar()));
+		}
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
 		System.out.println("Key Pressed: (KeyChar):" + e.getKeyChar() + " (KeyCode):" + e.getKeyCode() + " (Pressed):" + pressedKeys);
 		
-		// If an ASCII character which is also in RACP is entered, type the associated RACP character.
-		if(CharacterSet.ASCII_TO_RACP_MAPPING.containsKey(e.getKeyChar())){
-			window.typeCharacter(CharacterSet.ASCII_TO_RACP_MAPPING.get(e.getKeyChar()));
-		}else{
-			pressedKeys.add(e.getKeyCode());
-			for(Entry<int[], Procedure> entry: keybinds.entrySet()){
-				if(pressedKeysAre(entry.getKey())){
-					entry.getValue().run();
-					return;
-				}
+		pressedKeys.add(e.getKeyCode());
+		for(Entry<int[], Procedure> entry: keybinds.entrySet()){
+			if(pressedKeysAre(entry.getKey())){
+				entry.getValue().run();
+				this.combinationTriggered = true;
+				return;
 			}
-			System.out.println("No combination. Has focus: " +  window.hasFocus());
-			//if(window.h)
 		}
+		this.combinationTriggered = false;
+		System.out.println("No combination. Has focus: " +  window.hasFocus());
 	}
 
 	@Override
