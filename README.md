@@ -5,7 +5,7 @@ A character set for the modern programming environment.
 ## Motivation
 
 The use of the ASCII character set has been ongoing for about 50 years now<sup>1</sup> and it seems time for a modernisation.
-I find that ASCII no longer fits the role it has as the de facto character set. It was designed for use with teletypes<sup>2</sup>, but is now used for so much more. This begs the question: why? The short answer is that its what we have always done. But, this answer hinders progress and innovation, so I have decided to try and modernise ASCII for the current software development environment.
+I find that ASCII no longer fits the role it has as the de facto character set. It was designed for use with teletypes<sup>2</sup>, but is now used for so much more. This begs the question: why? The short answer is that it's what we have always done. But, this answer hinders progress and innovation, so I have decided to try and modernise ASCII for the current software development environment.
 
 ASCII uses 7-bit character codes, i.e. 128 codes in total, but about a quarter of those are control codes which are rarely used<sup>3</sup>. A huge waste. 
 RACP aims at repurposing those codes for useful endevours and additionally define rules which solve some of the annoyances programmers face today. Like: 
@@ -34,13 +34,15 @@ Lastly, I must acknowledge that this is probably a futile endevour, as it is exc
 
 ## FAQ
 
-#### *Its < insert current year >, why make a new character set that does not support all languages?*
+#### *Its < insert current year >, why make a new character set that does not support all natural languages?*
+
+_Warning: Very subjective opinion._
 
 RACP is designed for programmers to use in source/protocol code. Therefore, non-technical users are not expected to
 ever read pure RACP. Internationalization is not a goal of the character set. 
-In reality, RACP is specifically designed to minimize internationalization so that all the worlds programmers can converge on a single
-human language, English. This is an important goal, as it will allow all programmers to always be able to read other programmers code.
-The obvious choice of the standard human language programmers should use is English, and therefore RACP only supports strictly English characters.
+In reality, RACP is specifically designed to minimize internationalization so that all of the world's programmers can converge on a single
+natural language, English. This is an important goal, as it will allow all programmers to always be able to read other programmers' code.
+The obvious choice of language is English, and therefore RACP only supports strictly English characters.
 Anyone who want to argue against the use of English must provide extraordenary evidence that shows that most source code today or ever is written in another language that should be used instead.
 
 The proliferation of Unicode in programming language sources is bad for the world. 
@@ -61,7 +63,7 @@ If I could, I would have less characters. Since we cannot have undefined charact
 
 What does *NULL* mean? the lack of a character? how can a character be the lack of a character? shouldn't there just *not* be a character?
 
-*"How will you implement null-terminated strings without a NULL characters?"*
+*"How will you implement null-terminated strings without a NULL character?"*
 
 You shouldn't. Null-terminated strings have been called many things. I will now call them an abomination.
 
@@ -73,7 +75,7 @@ Even though protocols are intended for machine reading, programmers must be able
 
 #### *Why are Elastic Tabstops a requirement and not just a recommendation?*
 
-Because recommendations are ignored<sup>1</sup> and this is Better<sup>TM</sup>.
+Because recommendations are ignored<sup>5</sup> and this is Better<sup>TM</sup>.
 
 #### *Why use the names* Jamb *and* Lath *for the new brackets?*
 
@@ -83,7 +85,7 @@ Their real world meanings are also comfortably close to what they should be used
 
 #### *What are those weird characters you use for the first 9 hexadecimals?*
 
-They are used when writing numbers in Arabic.<sup>2</sup>
+They are used when writing numbers in Arabic.<sup>6</sup>
 Since I speak and write Arabic they seemed as an obvious choice. 
 I tried inventing my own characters but I am apparently not a very creative person.
 
@@ -100,8 +102,8 @@ This is true. Though, any terminals using RACP would have probably been written 
 I do not see this as a problem, as all applications should distinguish between characters and commands. In RACP, no character should be interpreted as a command, not even TAB or NL.
 
 #
-1: https://en.wikipedia.org/wiki/Metric_Conversion_Act
+5: https://en.wikipedia.org/wiki/Metric_Conversion_Act
 
-2: https://en.wikipedia.org/wiki/Eastern_Arabic_numerals
+6: https://en.wikipedia.org/wiki/Eastern_Arabic_numerals
 
 
