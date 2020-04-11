@@ -34,21 +34,6 @@ Lastly, I must acknowledge that this is probably a futile endevour, as it is exc
 
 ## FAQ
 
-#### *Its < insert current year >, why make a new character set that does not support all natural languages?*
-
-_Warning: Very subjective opinion._
-
-RACP is designed for programmers to use in source/protocol code. Therefore, non-technical users are not expected to
-ever read pure RACP. Internationalization is not a goal of the character set. 
-In reality, RACP is specifically designed to minimize internationalization so that all of the world's programmers can converge on a single
-natural language, English. This is an important goal, as it will allow all programmers to always be able to read other programmers' code.
-The obvious choice of language is English, and therefore RACP only supports strictly English characters.
-Anyone who want to argue against the use of English must provide extraordenary evidence that shows that most source code today or ever is written in another language that should be used instead.
-
-The proliferation of Unicode in programming language sources is bad for the world. 
-It means that programmers from different human language backround can isolate themselves by writing their programs using their native language, which is unreadable to all non-native programmers. 
-Additionally, it actually allows the use of emojis as variable names. If anyone seriously thinks that is a good idea, I urge them to rethink their life choices.
-
 #### *Why not use all 256 values available in a byte and add more characters?*
 
 The primary reason is that of future compatability. By having one bit free, we will able to, in the future, define a Unicode like character set or encoding which always has that bit set to 1. This makes it trivial to figure out which of the two incodings a string is written in. 
@@ -100,6 +85,21 @@ No graphical representation of *any* character is mandated by this specification
 
 This is true. Though, any terminals using RACP would have probably been written from scratch to do so, which is a great opportunity to instead implement a proper interface that does not rely on specific characters.
 I do not see this as a problem, as all applications should distinguish between characters and commands. In RACP, no character should be interpreted as a command, not even TAB or NL.
+
+#### *Its < insert current year >, why make a new character set that does not support all natural languages?*
+
+_Warning: Very subjective opinion._
+
+RACP is designed for programmers to use in source/protocol code. Therefore, non-technical users are not expected to
+ever read pure RACP. Internationalization is not a goal of the character set. 
+In reality, RACP is specifically designed to minimize internationalization so that all of the world's programmers can converge on a single
+natural language, English. This is an important goal, as it will allow all programmers to always be able to read other programmers' code.
+The obvious choice of language is English, and therefore RACP only supports strictly English characters.
+Anyone who want to argue against the use of English must provide extraordenary evidence that shows that most source code today or ever is written in another language that should be used instead.
+
+The proliferation of Unicode in programming language sources is bad for the world. 
+It means that programmers from different human language backround can isolate themselves by writing their programs using their native language, which is unreadable to all non-native programmers. 
+Additionally, it actually allows the use of emojis as variable names. If anyone seriously thinks that is a good idea, I urge them to rethink their life choices.
 
 #
 5: https://en.wikipedia.org/wiki/Metric_Conversion_Act
